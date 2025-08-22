@@ -37,7 +37,7 @@ export const PersistentButton = ({
     const orderSection =
       document.querySelector('[data-section="product"]') ||
       document.querySelector(
-        'section[class*="bg-gradient-to-b from-black/50 via-purple-900/20 to-black/50"]'
+        'section[class*="bg-gradient-to-b from-purple-900/30 via-black/50 to-purple-800/20"]'
       );
     if (orderSection) {
       orderSection.scrollIntoView({ behavior: 'smooth' });

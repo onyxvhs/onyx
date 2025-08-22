@@ -93,12 +93,14 @@ export default function CarouselSection() {
     const activeThumb = carouselRef.current?.children[
       activeIndex
     ] as HTMLElement;
-    if (activeThumb && carouselRef.current) {
-      activeThumb.scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest',
-      });
+    const container = carouselRef.current;
+
+    if (activeThumb && container) {
+      const scrollLeft =
+        activeThumb.offsetLeft -
+        container.clientWidth / 2 +
+        activeThumb.clientWidth / 2;
+      container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
     }
   }, [activeIndex]);
 
