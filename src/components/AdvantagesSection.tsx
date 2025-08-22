@@ -97,7 +97,7 @@ export default function AdvantagesSection() {
   ];
 
   return (
-    <section className="py-32 px-4 relative bg-gradient-to-b from-purple-900/30 via-black/50 to-purple-900/30 fade-edge fade-edge-bottom fade-edge-top fade-edge-sm fade-edge-cyberpunk">
+    <section className="py-32 px-4 relative bg-gradient-to-b from-purple-950/30 via-black/50 to-purple-800/30 fade-edge fade-edge-bottom fade-edge-top fade-edge-sm fade-edge-cyberpunk">
       <div className="max-w-4xl mx-auto relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -165,13 +165,13 @@ export default function AdvantagesSection() {
                     className="card-flip-back"
                     aria-hidden={isTouch ? !flipped.has(index) : true}
                   >
-                    <div className="w-full h-full neon-border backdrop-blur-sm hover:neon-glow transition-all duration-800 group cursor-pointer rounded-xl overflow-hidden relative">
+                    <div className="w-full h-full neon-border backdrop-blur-sm hover:neon-glow transition-all duration-800 group cursor-pointer rounded-xl overflow-hidden relative flex items-center justify-center">
                       <Image
                         src={advantage.frontImage || '/placeholder.svg'}
                         alt={`${advantage.title} - Front`}
                         width={320}
                         height={300}
-                        className="w-full h-full object-contain"
+                        className="w-1/2 h-1/2 object-contain"
                         draggable={false}
                         style={{
                           backfaceVisibility: 'hidden',
@@ -180,11 +180,11 @@ export default function AdvantagesSection() {
                         }}
                         sizes="(min-width: 1024px) 256px, (min-width: 768px) 320px, 100vw"
                       />
-                      <div className="absolute inset-0 bg-black/60 flex flex-col justify-center items-center p-4 text-center">
-                        <h3 className="text-xl lg:text-lg font-bold text-white mb-3 transition-colors leading-tight">
+                      <div className="absolute inset-0 flex flex-col justify-center items-center p-4 text-center tv-screen bg-gradient-to-r from-purple-900/80 via-black/60 to-purple-800/80 backdrop-blur-md rounded-xl shadow-lg">
+                        <h3 className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-pink-500 to-fuchsia-500 mb-3 leading-tight drop-shadow-md transition-colors text-pretty">
                           {advantage.title}
                         </h3>
-                        <p className="text-white/80 text-sm leading-relaxed">
+                        <p className="text-white/90 text-sm md:text-base leading-relaxed drop-shadow-sm text-pretty">
                           {advantage.description}
                         </p>
                       </div>

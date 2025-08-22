@@ -8,6 +8,13 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'doareq03jfupil1a.public.blob.vercel-storage.com',
+        port: '',
+      },
+    ],
   },
 }
 

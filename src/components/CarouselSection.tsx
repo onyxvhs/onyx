@@ -1,383 +1,344 @@
 'use client';
 
-import { useEffect, useMemo, useState, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState, useCallback, useRef } from 'react';
+import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
-
-// Simple product type for clarity
-type Product = {
-  name: string;
-  image: string;
-  description: string;
-  active?: boolean;
-};
+import { PRODUCT_LIST } from '@/constants/ProductList.constant';
 
 export default function CarouselSection() {
-  // Source of truth: the whole catalog
-  const products: Product[] = useMemo(
-    () => [
-      {
-        name: 'Супернова',
-        image: '/supernova-product-cyberpunk.png',
-        description: 'Космічний вибух смаків з нотами екзотичних фруктів',
-      },
-      {
-        name: 'Банан',
-        image: '/banana-product-neon.png',
-        description: 'Тропічна солодкість з ніжними банановими нотами',
-      },
-      {
-        name: 'Pinkman',
-        image: '/placeholder-rd3it.png',
-        description: 'Легендарний мікс ягід з неперевершеним смаком',
-        active: true,
-      },
-      {
-        name: 'Персик',
-        image: '/peach-orange-product.png',
-        description: 'Соковитий персик з літніми відтінками',
-      },
-      {
-        name: 'Ківі',
-        image: '/green-kiwi-product.png',
-        description: 'Освіжаючий ківі з кислинкою',
-      },
-      {
-        name: 'Вишня',
-        image: '/cherry-product-red.png',
-        description: 'Насичена вишня з глибоким смаком',
-      },
-      {
-        name: 'Лимон',
-        image: '/lemon-product-yellow.png',
-        description: 'Цитрусова свіжість з лимонною кислинкою',
-      },
-      {
-        name: "М'ята",
-        image: '/mint-product-mint-green.png',
-        description: "Прохолодна м'ята для освіження",
-      },
-      {
-        name: 'Кокос',
-        image: '/coconut-products-white.png',
-        description: 'Тропічний кокос з молочними нотами',
-      },
-      {
-        name: 'Манго',
-        image: '/placeholder-lpeff.png',
-        description: 'Екзотичне манго з тропічним ароматом',
-      },
-      {
-        name: 'Арбуз',
-        image: '/watermelon-product.png',
-        description: 'Літній арбуз з освіжаючим смаком',
-      },
-      {
-        name: 'Виноград',
-        image: '/purple-grape-product.png',
-        description: 'Благородний виноград з винними нотами',
-      },
-    ],
+  const products = PRODUCT_LIST;
+  const initialActiveIndex = products.findIndex((p) => p.active) || 0;
+  const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
+  const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
+  const [dragConstraints, setDragConstraints] = useState({ left: 0, right: 0 });
+
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Calculate drag constraints for mobile swipe
+  useEffect(() => {
+    const updateConstraints = () => {
+      if (carouselRef.current && containerRef.current) {
+        const carouselWidth = carouselRef.current.scrollWidth;
+        const containerWidth = containerRef.current.clientWidth;
+        const maxScroll = carouselWidth - containerWidth;
+        setDragConstraints({
+          left: -Math.max(maxScroll, 0),
+          right: 0,
+        });
+      }
+    };
+
+    updateConstraints();
+    window.addEventListener('resize', updateConstraints);
+    return () => window.removeEventListener('resize', updateConstraints);
+  }, []);
+
+  const goToSlide = useCallback(
+    (index: number) => {
+      setActiveIndex(Math.max(0, Math.min(index, products.length - 1)));
+    },
+    [products.length]
+  );
+
+  const nextSlide = useCallback(() => {
+    goToSlide(activeIndex + 1);
+  }, [activeIndex, goToSlide]);
+
+  const prevSlide = useCallback(() => {
+    goToSlide(activeIndex - 1);
+  }, [activeIndex, goToSlide]);
+
+  // Handle swipe gestures on main image
+  const handleDragEnd = useCallback(
+    (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+      const threshold = 50;
+      if (info.offset.x > threshold) {
+        prevSlide();
+      } else if (info.offset.x < -threshold) {
+        nextSlide();
+      }
+    },
+    [nextSlide, prevSlide]
+  );
+
+  // Keyboard navigation
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      switch (e.key) {
+        case 'ArrowLeft':
+          e.preventDefault();
+          prevSlide();
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          nextSlide();
+          break;
+        case 'Home':
+          e.preventDefault();
+          goToSlide(0);
+          break;
+        case 'End':
+          e.preventDefault();
+          goToSlide(products.length - 1);
+          break;
+      }
+    },
+    [prevSlide, nextSlide, goToSlide, products.length]
+  );
+
+  // Auto-scroll thumbnail into view
+  useEffect(() => {
+    const activeThumb = carouselRef.current?.children[
+      activeIndex
+    ] as HTMLElement;
+    if (activeThumb && carouselRef.current) {
+      activeThumb.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest',
+      });
+    }
+  }, [activeIndex]);
+
+  const handleImageError = useCallback(
+    (index: number, type: 'carousel' | 'large') => {
+      console.warn(`Failed to load ${type} image for product ${index}`);
+      setImageErrors((prev) => new Set(prev).add(index));
+    },
     []
   );
 
-  const itemsPerPage = 5;
-  const carouselRef = useRef<HTMLDivElement>(null);
-
-  // Initialize active item by `active: true` or fallback to 0
-  const initialActive = useMemo(() => {
-    const i = products.findIndex((p) => p.active);
-    return i >= 0 ? i : 0;
-  }, [products]);
-
-  const [activeIndex, setActiveIndex] = useState<number>(initialActive);
-  const [startIndex, setStartIndex] = useState<number>(0);
-  const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
-
-  const maxStart = Math.max(products.length - itemsPerPage, 0);
-
-  // Ensure the active item is visible within the window of thumbnails
-  const ensureVisible = useCallback(
-    (index: number) => {
-      setStartIndex((prev) => {
-        if (index < prev) return index;
-        if (index >= prev + itemsPerPage)
-          return Math.min(index - itemsPerPage + 1, maxStart);
-        return prev; // already visible
-      });
-    },
-    [itemsPerPage, maxStart]
-  );
-
-  // Keep window centered around initial active on mount
-  useEffect(() => {
-    ensureVisible(initialActive);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Navigation that advances the selection (not just the window)
-  const prevItem = useCallback(() => {
-    setActiveIndex((prev) => {
-      const next = Math.max(prev - 1, 0);
-      ensureVisible(next);
-      return next;
-    });
-  }, [ensureVisible]);
-
-  const nextItem = useCallback(() => {
-    setActiveIndex((prev) => {
-      const next = Math.min(prev + 1, products.length - 1);
-      ensureVisible(next);
-      return next;
-    });
-  }, [products.length, ensureVisible]);
-
-  // Touch/swipe handling
-  const [touchStart, setTouchStart] = useState<number>(0);
-  const [touchEnd, setTouchEnd] = useState<number>(0);
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    if (isLeftSwipe) {
-      nextItem();
-    } else if (isRightSwipe) {
-      prevItem();
-    }
-  };
-
-  // Keyboard support
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        prevItem();
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        nextItem();
-      } else if (e.key === 'Home') {
-        e.preventDefault();
-        setActiveIndex(0);
-        ensureVisible(0);
-      } else if (e.key === 'End') {
-        e.preventDefault();
-        const lastIndex = products.length - 1;
-        setActiveIndex(lastIndex);
-        ensureVisible(lastIndex);
-      }
-    },
-    [prevItem, nextItem, products.length, ensureVisible]
-  );
-
-  // Image error handling
-  const handleImageError = useCallback((index: number) => {
-    setImageErrors((prev) => new Set(prev).add(index));
-  }, []);
-
-  // Visible thumbnails for the current window
-  const visibleProducts = products.slice(startIndex, startIndex + itemsPerPage);
-
-  const selected = products[activeIndex];
-  const title = selected.name.toUpperCase();
-  const details = `Смак: ${selected.description.toLowerCase()}. Ідеально підходить для тих, хто цінує якість та автентичність.`;
+  const currentProduct = products[activeIndex];
 
   return (
     <section
       id="product"
-      className="py-20 px-4 relative bg-gradient-to-b from-black/50 via-purple-900/20 to-black/50 fade-edge fade-edge-bottom fade-edge-top fade-edge-sm fade-edge-cyberpunk"
+      className="py-12 md:py-20 px-4 relative bg-gradient-to-b from-purple-900/30 via-black/50 to-purple-800/20 fade-edge fade-edge-bottom fade-edge-top fade-edge-sm fade-edge-cyberpunk"
     >
-      <div className="max-w-7xl mx-auto mb-16">
-        <div
-          ref={carouselRef}
-          className="relative flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-pink-400/50 focus:ring-offset-2 focus:ring-offset-transparent rounded-lg"
-          tabIndex={0}
-          onKeyDown={handleKeyDown}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          role="tablist"
-          aria-label="Вибір продукту ONYX"
-        >
-          <button
-            onClick={prevItem}
-            disabled={activeIndex === 0}
-            aria-label="Попередній продукт"
-            className="hidden md:flex absolute left-0 z-10 w-14 h-14 items-center justify-center bg-black/70 backdrop-blur-sm rounded-full neon-border hover:neon-glow transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:neon-border group"
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto">
+        {/* Mobile-First Layout */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-start lg:items-center">
+          {/* Product Display - Mobile First, Desktop Left */}
+          <div
+            className="order-2 lg:order-1 w-full"
+            onKeyDown={handleKeyDown}
+            tabIndex={0}
+            role="img"
+            aria-label={`${currentProduct.name} - головне зображення продукту`}
           >
-            <ChevronLeft
-              className="w-7 h-7 text-white group-hover:text-pink-400 transition-colors"
-              aria-hidden="true"
-            />
-          </button>
-
-          <div className="flex justify-center gap-6 overflow-x-auto md:overflow-hidden pb-4 px-4 max-w-3xl snap-x">
-            {visibleProducts.map((product, idx) => {
-              const actualIndex = startIndex + idx;
-              const isActive = actualIndex === activeIndex;
-              const hasError = imageErrors.has(actualIndex);
-
-              return (
-                <motion.div
-                  key={actualIndex}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.05 }}
-                  onClick={() => {
-                    setActiveIndex(actualIndex);
-                    ensureVisible(actualIndex);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setActiveIndex(actualIndex);
-                      ensureVisible(actualIndex);
-                    }
-                  }}
-                  role="tab"
-                  tabIndex={isActive ? 0 : -1}
-                  aria-selected={isActive}
-                  aria-controls={`product-details`}
-                  className={`flex-shrink-0 cursor-pointer transition-all duration-300 py-10 snap-center rounded-lg ${
-                    isActive ? 'scale-110' : 'hover:scale-105'
-                  }`}
-                >
-                  <div
-                    className={`w-32 h-24 rounded-lg overflow-hidden transition-all duration-300 ${
-                      isActive ? 'neon-border-pink' : 'neon-border'
-                    }`}
-                  >
-                    {hasError ? (
-                      <div className="w-32 h-24 bg-gray-800 flex items-center justify-center">
-                        <span className="text-gray-400 text-xs">No Image</span>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.05 }}
+                transition={{ duration: 0.4, ease: 'easeInOut' }}
+                className="relative"
+                drag="x"
+                dragConstraints={{ left: -100, right: 100 }}
+                dragElastic={0.2}
+                onDragEnd={handleDragEnd}
+                whileDrag={{ scale: 0.98 }}
+              >
+                <div className="relative aspect-square w-full max-w-md mx-auto">
+                  {imageErrors.has(activeIndex) ? (
+                    <div className="w-full h-full bg-gray-900/60 rounded-2xl border border-white/10 flex items-center justify-center">
+                      <div className="text-center text-gray-400">
+                        <div className="w-16 h-16 mx-auto mb-4 opacity-50">
+                          <svg fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
+                          </svg>
+                        </div>
+                        <p className="text-sm">Зображення недоступне</p>
                       </div>
-                    ) : (
+                    </div>
+                  ) : (
+                    <div className="relative w-full h-full">
                       <Image
-                        src={product.image || '/placeholder.svg'}
-                        alt={`${product.name} - тютюн для кальяну`}
-                        width={128}
-                        height={96}
-                        className="w-32 h-24 object-cover"
-                        priority={isActive}
-                        onError={() => handleImageError(actualIndex)}
+                        src={currentProduct.largeImage}
+                        alt={`${currentProduct.name} - тютюн для кальяну ONYX`}
+                        fill
+                        className="object-contain rounded-2xl"
+                        sizes="(min-width: 1024px) 50vw, 90vw"
+                        priority
+                        onError={() => handleImageError(activeIndex, 'large')}
                       />
-                    )}
-                  </div>
-                  <p
-                    className={`text-center text-sm mt-3 transition-colors duration-300 font-mono ${
-                      isActive ? 'text-pink-400 font-bold' : 'text-white/70'
-                    }`}
-                  >
-                    {product.name}
-                  </p>
-                </motion.div>
-              );
-            })}
+
+                      {/* Neon glow effect */}
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-cyan-500/10 blur-xl -z-10" />
+                    </div>
+                  )}
+                </div>
+
+                {/* Desktop Navigation Arrows */}
+                <button
+                  onClick={prevSlide}
+                  disabled={activeIndex === 0}
+                  className="hidden xl:flex absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 items-center justify-center bg-black/70 backdrop-blur-sm rounded-full border border-white/20 hover:border-pink-400/50 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group z-10"
+                  aria-label="Попередній продукт"
+                >
+                  <ChevronLeft className="w-6 h-6 text-white group-hover:text-pink-400 transition-colors" />
+                </button>
+
+                <button
+                  onClick={nextSlide}
+                  disabled={activeIndex === products.length - 1}
+                  className="hidden xl:flex absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 items-center justify-center bg-black/70 backdrop-blur-sm rounded-full border border-white/20 hover:border-pink-400/50 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group z-10"
+                  aria-label="Наступний продукт"
+                >
+                  <ChevronRight className="w-6 h-6 text-white group-hover:text-pink-400 transition-colors" />
+                </button>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Mobile Navigation */}
+            <div className="flex justify-center gap-4 mt-6 lg:hidden">
+              <motion.button
+                onClick={prevSlide}
+                disabled={activeIndex === 0}
+                className="flex items-center gap-2 px-4 py-2 bg-black/60 backdrop-blur-sm rounded-full border border-white/20 hover:border-pink-400/50 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed text-white text-sm"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ChevronLeft className="w-4 h-4" />
+                <span>Попередній</span>
+              </motion.button>
+
+              <motion.button
+                onClick={nextSlide}
+                disabled={activeIndex === products.length - 1}
+                className="flex items-center gap-2 px-4 py-2 bg-black/60 backdrop-blur-sm rounded-full border border-white/20 hover:border-pink-400/50 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed text-white text-sm"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span>Наступний</span>
+                <ChevronRight className="w-4 h-4" />
+              </motion.button>
+            </div>
           </div>
 
-          <button
-            onClick={nextItem}
-            disabled={activeIndex === products.length - 1}
-            aria-label="Наступний продукт"
-            className="hidden md:flex absolute right-0 z-10 w-14 h-14 items-center justify-center bg-black/70 backdrop-blur-sm rounded-full neon-border hover:neon-glow transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:neon-border group"
-          >
-            <ChevronRight
-              className="w-7 h-7 text-white group-hover:text-pink-400 transition-colors"
-              aria-hidden="true"
-            />
-          </button>
-        </div>
-
-        {/* Mobile swipe hint */}
-        <div className="md:hidden text-center mt-4">
-          <p className="text-white/50 text-sm font-mono">
-            ← Проведіть для перегляду →
-          </p>
-        </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4 }}
-                className="relative"
-              >
-                {imageErrors.has(activeIndex) ? (
-                  <div className="w-full max-w-md mx-auto h-64 bg-gray-800 rounded-xl neon-glow flex items-center justify-center">
-                    <span className="text-gray-400">Зображення недоступне</span>
-                  </div>
-                ) : (
-                  <Image
-                    src={selected.image || '/placeholder.svg'}
-                    alt={`${selected.name} - тютюн для кальяну ONYX`}
-                    width={640}
-                    height={640}
-                    className="w-full max-w-md mx-auto rounded-xl neon-glow h-auto"
-                    priority
-                    onError={() => handleImageError(activeIndex)}
-                  />
-                )}
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-            id="product-details"
-            role="tabpanel"
-            aria-live="polite"
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.25 }}
-              >
-                <h2
-                  className="text-5xl font-mono font-bold text-white mb-4 glitch"
-                  data-text={title}
+          {/* Product Info & Thumbnails - Mobile First, Desktop Right */}
+          <div className="order-1 lg:order-2 w-full space-y-6">
+            {/* Product Details */}
+            <div className="space-y-4">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  {title}
-                </h2>
+                  <h2
+                    className="text-3xl md:text-4xl lg:text-5xl font-mono font-bold text-white mb-4 glitch"
+                    data-text={currentProduct.name.toUpperCase()}
+                  >
+                    {currentProduct.name.toUpperCase()}
+                  </h2>
 
-                <p className="text-white/80 text-lg mb-6 leading-relaxed">
-                  {selected.description}
-                </p>
-                <p className="text-white/70 text-base leading-relaxed">
-                  {details}
-                </p>
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
+                  <p className="text-white/80 text-base md:text-lg leading-relaxed mb-4">
+                    {currentProduct.description}
+                  </p>
+
+                  <p className="text-white/60 text-sm md:text-base leading-relaxed">
+                    Смак: {currentProduct.description.toLowerCase()}. Ідеально
+                    підходить для тих, хто цінує якість та автентичність.
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Thumbnails Carousel */}
+            <div className="space-y-4">
+              <h3 className="text-white/70 text-sm font-mono uppercase tracking-wider">
+                Оберіть смак
+                {/*({activeIndex + 1} з {products.length})*/}
+              </h3>
+
+              <div ref={containerRef} className="relative overflow-hidden">
+                <motion.div
+                  ref={carouselRef}
+                  className="flex gap-3 md:gap-4 overflow-x-auto scrollbar-hide py-4"
+                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
+                  {products.map((product, index) => {
+                    const isActive = index === activeIndex;
+                    const hasError = imageErrors.has(index);
+
+                    return (
+                      <motion.button
+                        key={index}
+                        onClick={() => goToSlide(index)}
+                        className={`relative flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden border-2 transition-all duration-300 ${
+                          isActive
+                            ? 'border-pink-400 shadow-[0_0_20px_rgba(244,114,182,0.4)]'
+                            : 'border-white/20 hover:border-white/40'
+                        }`}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        aria-label={`Вибрати ${product.name}`}
+                        aria-pressed={isActive}
+                      >
+                        {hasError ? (
+                          <div className="w-full h-full bg-gray-800 flex items-center justify-center">
+                            <div className="w-6 h-6 text-gray-500">
+                              <svg fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
+                              </svg>
+                            </div>
+                          </div>
+                        ) : (
+                          <Image
+                            src={product.carouselImage}
+                            alt={`${product.name} міні зображення`}
+                            fill
+                            className="object-cover"
+                            sizes="80px"
+                            onError={() => handleImageError(index, 'carousel')}
+                          />
+                        )}
+
+                        {/* Active indicator */}
+                        {isActive && (
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="absolute backdrop-blur-sm"
+                          />
+                        )}
+                      </motion.button>
+                    );
+                  })}
+                </motion.div>
+              </div>
+
+              {/* Progress Dots */}
+              <div className="flex justify-center gap-2 mt-4">
+                {products.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      index === activeIndex
+                        ? 'w-8 bg-pink-400'
+                        : 'w-2 bg-white/30 hover:bg-white/50'
+                    }`}
+                    aria-label={`Перейти до слайда ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Swipe Hint */}
+        <div className="lg:hidden text-center mt-8">
+          <p className="text-white/40 text-xs font-mono">
+            ← Проведіть пальцем для перегляду →
+          </p>
         </div>
       </div>
     </section>

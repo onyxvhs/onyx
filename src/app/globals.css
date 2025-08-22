@@ -127,6 +127,34 @@
     @apply bg-background text-foreground;
   }
 
+    html, body {
+        width: 100%;
+        min-width: 100%;
+        overflow-x: clip;
+    }
+
+    /* Make the page width match the visual viewport on iOS */
+    @supports (width: 100svw) {
+        body {
+            width: 100svw;
+            max-width: 100svw;
+        }
+    }
+
+    /* Utilities for dvh/dvw without Tailwind plugin */
+    @supports (width: 100dvw) {
+        .w-dvw { width: 100dvw; }
+        .min-w-dvw { min-width: 100dvw; }
+        .max-w-dvw { max-width: 100dvw; }
+        .min-h-dvh { min-height: 100dvh; }
+    }
+
+    /* Respect notches in landscape while keeping content padded nicely */
+    .px-safe {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+
   .neon-border {
     position: relative;
     border-radius: inherit;
@@ -427,32 +455,27 @@
 
   /* Enhanced retrowave background with smoother gradients and better performance */
   .retrowave-bg {
-    background:
-      radial-gradient(
-        circle at 20% 80%,
-        rgba(120, 119, 198, 0.25) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 80% 20%,
-        rgba(255, 119, 198, 0.25) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 40% 40%,
-        rgba(120, 219, 255, 0.15) 0%,
-        transparent 50%
-      ),
-      linear-gradient(
-        135deg,
-        #0a0a0a 0%,
-        #1a0033 20%,
-        #000000 40%,
-        #330066 60%,
-        #1a0033 80%,
-        #0a0a0a 100%
-      );
-    background-attachment: fixed;
+      background: radial-gradient(
+              circle at 20% 80%,
+              rgba(120, 119, 198, 0.25) 0%,
+              transparent 50%
+      ), radial-gradient(
+              circle at 80% 20%,
+              rgba(255, 119, 198, 0.25) 0%,
+              transparent 50%
+      ), radial-gradient(
+              circle at 40% 40%,
+              rgba(120, 219, 255, 0.15) 0%,
+              transparent 50%
+      ), linear-gradient(
+              135deg,
+              #0a0a0a 0%,
+              #1a0033 20%,
+              #000000 40%,
+              #330066 60%,
+              #1a0033 80%,
+              #0a0a0a 100%
+      ) fixed;
   }
 
   /* Card flip animation styles - Safari/iPhone optimized */
@@ -603,6 +626,18 @@
     }
 
     /* Size modifiers */
+
+    /* Size modifiers */
+    .fade-edge.fade-edge-xs.fade-edge-bottom::after,
+    .fade-edge.fade-edge-xs.fade-edge-top::before {
+        height: 10px;
+    }
+
+    .fade-edge.fade-edge-xs.fade-edge-left::before,
+    .fade-edge.fade-edge-xs.fade-edge-right::after {
+        width: 10px;
+    }
+
     .fade-edge.fade-edge-sm.fade-edge-bottom::after,
     .fade-edge.fade-edge-sm.fade-edge-top::before {
         height: 30px;

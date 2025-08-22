@@ -1,6 +1,7 @@
 import type React from 'react';
 import type { Metadata } from 'next';
 import { Inter, Orbitron } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
 const inter = Inter({
@@ -59,6 +60,12 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -84,10 +91,11 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${orbitron.variable} font-sans antialiased bg-black text-white overflow-x-hidden scroll-smooth`}
+        className={`${inter.variable} ${orbitron.variable} font-sans antialiased bg-black text-white overflow-x-clip scroll-smooth`}
       >
         {children}
       </body>
+      <Analytics />
     </html>
   );
 }
