@@ -20,16 +20,16 @@ export default function HomePage() {
         onVerify={() => setIsAgeVerified(true)}
       />
 
-      <div className="min-h-screen retrowave-bg relative overflow-hidden">
-        <div className="fixed inset-0 opacity-20 z-0">
+      <div className="min-h-screen retrowave-bg relative overflow-hidden w-full">
+        <div className="fixed inset-0 opacity-20 z-0 w-full">
           <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_24%,rgba(255,0,128,0.3)_25%,rgba(255,0,128,0.3)_26%,transparent_27%,transparent_74%,rgba(0,255,255,0.3)_75%,rgba(0,255,255,0.3)_76%,transparent_77%,transparent)] bg-[length:60px_60px] retrowave-grid animate-pulse"></div>
           <div className="absolute inset-0 bg-[linear-gradient(0deg,transparent_24%,rgba(255,0,128,0.2)_25%,rgba(255,0,128,0.2)_26%,transparent_27%,transparent_74%,rgba(0,255,255,0.2)_75%,rgba(0,255,255,0.2)_76%,transparent_77%,transparent)] bg-[length:60px_60px]"></div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(128,0,255,0.15)_0%,transparent_60%)]"></div>
         </div>
 
-        <PersistentButton />
+        <PersistentButton isAgeVerified={isAgeVerified} />
 
-        <div className="relative z-10">
+        <div className="relative z-10 w-full">
           <HeaderSection />
           <main>
             {/*<div className="h-20 bg-gradient-to-b from-transparent via-black/30 to-transparent"></div>*/}

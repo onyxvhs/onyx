@@ -26,42 +26,42 @@ export default function AgeVerificationModal({
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
-            className="relative max-w-md w-full mx-4 p-8 rounded-3xl cyber-gradient"
+            className="max-w-md w-full mx-4 p-8 rounded-3xl cyber-gradient max-h-screen overflow-y-auto"
           >
-            {/* Language selector */}
-            <div className="absolute top-4 right-4 flex items-center gap-2">
-              <div className="flex justify-center md:justify-end items-center gap-2 mt-3">
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="flex items-center gap-1 px-2 py-1 bg-blue-500/20 backdrop-blur-sm border border-blue-400/50 rounded-full hover:bg-blue-500/30 transition-all duration-300 neon-border-cyan group"
-                >
-                  <div className="w-4 h-4 rounded-full bg-blue-500 border border-yellow-400 flex items-center justify-center">
-                    <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                  </div>
-                  <span className="text-white font-mono text-xs group-hover:text-cyan-300">
-                    UA
-                  </span>
-                </motion.button>
-
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="flex items-center gap-1 px-2 py-1 bg-red-500/20 backdrop-blur-sm border border-red-400/50 rounded-full hover:bg-red-500/30 transition-all duration-300 neon-border group"
-                >
-                  <div className="w-4 h-4 rounded-full bg-red-500 border border-white flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-sm"></div>
-                  </div>
-                  <span className="text-white font-mono text-xs group-hover:text-red-300">
-                    EN
-                  </span>
-                </motion.button>
-              </div>
-            </div>
-
             {/* Character image placeholder */}
-            <div className="flex justify-center mb-6 mt-14">
-              <div className="relative">
+            <div className="flex flex-col justify-center">
+              {/* Language selector */}
+              <div className="flex items-center gap-4 self-end pb-10">
+                <div className="flex justify-center md:justify-end items-center gap-2 mt-3">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="flex items-center justify-center gap-1 px-2 py-1 bg-blue-500/20 backdrop-blur-sm border border-blue-400/50 rounded-full hover:bg-blue-500/30 transition-colors duration-400 neon-border group"
+                  >
+                    <div className="w-4 h-4 rounded-full bg-blue-500 border border-yellow-400 flex items-center justify-center">
+                      <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                    </div>
+                    <span className="text-white font-mono text-xs group-hover:text-cyan-300">
+                      UA
+                    </span>
+                  </motion.button>
+
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="flex items-center gap-1 px-2 py-1 bg-red-500/20 backdrop-blur-sm border border-red-400/50 rounded-full hover:bg-red-500/30 transition-colors duration-400 neon-border group"
+                  >
+                    <div className="w-4 h-4 rounded-full bg-red-500 border border-white flex items-center justify-center">
+                      <div className="w-2 h-2 bg-white rounded-sm"></div>
+                    </div>
+                    <span className="text-white font-mono text-xs group-hover:text-red-300">
+                      EN
+                    </span>
+                  </motion.button>
+                </div>
+              </div>
+
+              <div className="flex justify-center relative w-fit self-center">
                 <Image
                   src="/age-verif-img.png"
                   alt="Cyberpunk Character"

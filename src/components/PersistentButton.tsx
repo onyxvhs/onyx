@@ -4,27 +4,33 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
-export const PersistentButton = () => {
-  const [isExpanded, setIsExpanded] = useState(true); // Start expanded
-  const [showButton, setShowButton] = useState(true); // Show immediately
-  const [showTooltip, setShowTooltip] = useState(true); // Show tooltip initially
+export const PersistentButton = ({
+  isAgeVerified,
+}: {
+  isAgeVerified: boolean;
+}) => {
+  const [isExpanded, setIsExpanded] = useState(true);
+  const [showButton, setShowButton] = useState(true);
+  const [showTooltip, setShowTooltip] = useState(true);
 
   useEffect(() => {
-    // Collapse after 5 seconds
-    const collapseTimer = setTimeout(() => {
-      setIsExpanded(false);
-    }, 5000);
+    if (isAgeVerified) {
+      // Collapse after 5 seconds
+      const collapseTimer = setTimeout(() => {
+        setIsExpanded(false);
+      }, 5000);
 
-    // Hide tooltip after 10 seconds on larger screens
-    const tooltipTimer = setTimeout(() => {
-      setShowTooltip(false);
-    }, 10000);
+      // Hide tooltip after 10 seconds on larger screens
+      const tooltipTimer = setTimeout(() => {
+        setShowTooltip(false);
+      }, 10000);
 
-    return () => {
-      clearTimeout(collapseTimer);
-      clearTimeout(tooltipTimer);
-    };
-  }, []);
+      return () => {
+        clearTimeout(collapseTimer);
+        clearTimeout(tooltipTimer);
+      };
+    }
+  }, [isAgeVerified]);
 
   const handleClick = () => {
     // Scroll to OrderSection or handle flavor exploration
@@ -49,7 +55,7 @@ export const PersistentButton = () => {
     }
   };
 
-  if (!showButton) return null;
+  if (!showButton || !isAgeVerified) return null;
 
   return (
     <AnimatePresence>

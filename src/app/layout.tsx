@@ -65,8 +65,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uk" className={`${inter.variable} ${orbitron.variable}`}>
-      <body className="font-sans antialiased bg-purple-950 text-white overflow-x-hidden">
+    <html lang="uk">
+      <head>
+        <meta
+          name="theme-color"
+          content="#ffffff"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#000000"
+          media="(prefers-color-scheme: dark)"
+        />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
+      </head>
+      <body
+        className={`${inter.variable} ${orbitron.variable} font-sans antialiased bg-black text-white overflow-x-hidden scroll-smooth`}
+      >
         {children}
       </body>
     </html>
