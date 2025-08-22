@@ -1,0 +1,588 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  --font-inter: 'Inter', sans-serif;
+  --font-orbitron: 'Orbitron', monospace;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-orbitron);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  .neon-border {
+    position: relative;
+    border-radius: inherit;
+  }
+  .neon-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px; /* border thickness */
+    border-radius: inherit;
+    background: linear-gradient(45deg, #ff0080, #00ffff);
+    /* punch out the center so only the border shows */
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out; /* Safari */
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude; /* Standard */
+    pointer-events: none;
+  }
+
+  .neon-border-pink {
+    position: relative;
+    border-radius: inherit;
+  }
+  .neon-border-pink::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px; /* border thickness */
+    border-radius: inherit;
+    background: linear-gradient(45deg, #ff0080, #ff4da6);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out; /* Safari */
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude; /* Standard */
+    pointer-events: none;
+  }
+
+  /* Enhanced TV screen styling for background elements with better animations */
+  .tv-screen {
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.95) 0%,
+      rgba(20, 20, 40, 0.95) 100%
+    );
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow:
+      0 0 15px rgba(0, 0, 0, 0.8),
+      inset 0 0 15px rgba(255, 255, 255, 0.1);
+  }
+
+  .tv-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 100%
+    );
+    animation: tv-scan 3s linear infinite;
+  }
+
+  .tv-screen::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      rgba(0, 0, 0, 0.1) 1px,
+      rgba(0, 0, 0, 0.1) 2px
+    );
+    pointer-events: none;
+  }
+
+  @keyframes tv-scan {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Enhanced glitch effects with better performance */
+  .glitch {
+    position: relative;
+    animation: glitch 3s infinite;
+  }
+
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .glitch::before {
+    animation: glitch-1 0.6s infinite;
+    color: #ff0080;
+    z-index: -1;
+  }
+
+  .glitch::after {
+    animation: glitch-2 0.6s infinite;
+    color: #00ffff;
+    z-index: -2;
+  }
+
+  @keyframes glitch {
+    0%,
+    100% {
+      transform: translate(0);
+    }
+    20% {
+      transform: translate(-2px, 2px);
+    }
+    40% {
+      transform: translate(-2px, -2px);
+    }
+    60% {
+      transform: translate(2px, 2px);
+    }
+    80% {
+      transform: translate(2px, -2px);
+    }
+  }
+
+  @keyframes glitch-1 {
+    0%,
+    100% {
+      transform: translate(0);
+    }
+    20% {
+      transform: translate(2px, -2px);
+    }
+    40% {
+      transform: translate(-2px, 2px);
+    }
+    60% {
+      transform: translate(-2px, -2px);
+    }
+    80% {
+      transform: translate(2px, 2px);
+    }
+  }
+
+  @keyframes glitch-2 {
+    0%,
+    100% {
+      transform: translate(0);
+    }
+    20% {
+      transform: translate(-2px, -2px);
+    }
+    40% {
+      transform: translate(2px, -2px);
+    }
+    60% {
+      transform: translate(2px, 2px);
+    }
+    80% {
+      transform: translate(-2px, 2px);
+    }
+  }
+
+  .neon-glow {
+    box-shadow:
+      0 0 10px #ff0080,
+      0 0 20px #ff0080,
+      0 0 30px #ff0080;
+  }
+
+  /* Enhanced cyber gradient with more retrowave colors */
+  .cyber-gradient {
+    background: linear-gradient(
+      135deg,
+      #ff0080 0%,
+      #8000ff 25%,
+      #4000ff 50%,
+      #0080ff 75%,
+      #00ffff 100%
+    );
+  }
+
+  /* Added pulsing animation for neon elements */
+  @keyframes neon-pulse {
+    0%,
+    100% {
+      box-shadow:
+        0 0 10px #ff0080,
+        0 0 20px #ff0080,
+        0 0 30px #ff0080;
+    }
+    50% {
+      box-shadow:
+        0 0 20px #ff0080,
+        0 0 40px #ff0080,
+        0 0 60px #ff0080,
+        0 0 80px #ff0080;
+    }
+  }
+
+  .neon-pulse {
+    animation: neon-pulse 2s ease-in-out infinite;
+  }
+
+  /* Enhanced retrowave grid animation with smoother movement */
+  @keyframes grid-move {
+    0% {
+      transform: translateY(0) translateX(0) scale(1);
+    }
+    25% {
+      transform: translateY(15px) translateX(3px) scale(1.02);
+    }
+    50% {
+      transform: translateY(30px) translateX(0) scale(1);
+    }
+    75% {
+      transform: translateY(15px) translateX(-3px) scale(1.02);
+    }
+    100% {
+      transform: translateY(0) translateX(0) scale(1);
+    }
+  }
+
+  .retrowave-grid {
+    animation: grid-move 12s ease-in-out infinite;
+  }
+
+  /* Added floating particles effect for enhanced retrowave atmosphere */
+  @keyframes float-particles {
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
+      opacity: 0.7;
+    }
+    50% {
+      transform: translateY(-30px) rotate(180deg);
+      opacity: 1;
+    }
+  }
+
+  .floating-particles {
+    animation: float-particles 6s ease-in-out infinite;
+  }
+
+  /* Replaced spinning effect with elegant gradient rotation for button */
+  .enhanced-glow {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .enhanced-glow::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700, #ffed4e);
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease-in-out infinite;
+    z-index: -1;
+    border-radius: inherit;
+  }
+
+  @keyframes gradient-shift {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* Enhanced retrowave background with smoother gradients and better performance */
+  .retrowave-bg {
+    background:
+      radial-gradient(
+        circle at 20% 80%,
+        rgba(120, 119, 198, 0.25) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(255, 119, 198, 0.25) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 40% 40%,
+        rgba(120, 219, 255, 0.15) 0%,
+        transparent 50%
+      ),
+      linear-gradient(
+        135deg,
+        #0a0a0a 0%,
+        #1a0033 20%,
+        #000000 40%,
+        #330066 60%,
+        #1a0033 80%,
+        #0a0a0a 100%
+      );
+    background-attachment: fixed;
+  }
+
+  /* Added smooth section transitions for better scrolling experience */
+  section {
+    position: relative;
+    transition: all 0.6s ease-in-out;
+  }
+
+  section::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.1) 50%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  section::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(
+      to top,
+      transparent 0%,
+      rgba(0, 0, 0, 0.1) 50%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Card flip animation styles - Safari/iPhone optimized */
+  .card-flip-container {
+    perspective: 1000px;
+    width: 100%;
+    height: 350px;
+    position: relative;
+
+    /* iOS Safari touch optimization */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Force hardware acceleration on iOS */
+  .card-flip-container,
+  .card-flip-inner,
+  .card-flip-front,
+  .card-flip-back {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+  }
+
+  /* Prevent iOS rubber band scrolling during flip */
+  .card-flip-container * {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  .card-flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+  }
+
+  /* Hover effect for non-touch devices */
+  @media (hover: hover) and (pointer: fine) {
+    .card-flip-container:hover .card-flip-inner {
+      transform: rotateY(180deg);
+    }
+  }
+
+  /* Touch device flip state */
+  .card-flip-container.is-flipped .card-flip-inner {
+    transform: rotateY(180deg);
+  }
+
+  .card-flip-front,
+  .card-flip-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    border-radius: 12px;
+    overflow: hidden;
+    /* Safari optimization */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+
+  .card-flip-back {
+    transform: rotateY(180deg) translateZ(0);
+    -webkit-transform: rotateY(180deg) translateZ(0);
+  }
+
+  /* Safari-specific fixes */
+  @supports (-webkit-appearance: none) {
+    .card-flip-inner {
+      -webkit-transform-style: preserve-3d;
+      -webkit-perspective: 1000px;
+    }
+
+    .card-flip-front,
+    .card-flip-back {
+      -webkit-backface-visibility: hidden;
+      -webkit-transform: translateZ(0);
+    }
+
+    .card-flip-back {
+      -webkit-transform: rotateY(180deg) translateZ(0);
+    }
+  }
+}
