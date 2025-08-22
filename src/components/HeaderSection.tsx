@@ -43,17 +43,15 @@ export default function HeaderSection() {
         </motion.div>
       </div>
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1 }}
+        initial={{ opacity: 0, x: -30 }}
+        animate={{ opacity: 1, x: 0 }}
         className="absolute z-20 left-0 bottom-0"
       >
         <Image src={'/star-img.png'} alt={'star'} width={275} height={373} />
       </motion.div>
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1 }}
+        initial={{ opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
         className="absolute z-20 right-0 bottom-60"
       >
         <Image src={'/angle-img.png'} alt={'angle'} width={195} height={302} />

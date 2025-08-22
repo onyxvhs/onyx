@@ -141,7 +141,7 @@ export default function AdvantagesSection() {
                     className="card-flip-front"
                     aria-hidden={isTouch ? !!flipped.has(index) : false}
                   >
-                    <div className="w-full h-full neon-border backdrop-blur-sm hover:neon-glow transition-all duration-300 group cursor-pointer rounded-xl overflow-hidden">
+                    <div className="w-full h-full neon-border backdrop-blur-sm hover:neon-glow transition-all duration-300 group cursor-pointer rounded-xl overflow-hidden flex items-center justify-center">
                       <Image
                         src={advantage.backImage || '/placeholder.svg'}
                         alt={`${advantage.title} - Back`}
@@ -153,8 +153,6 @@ export default function AdvantagesSection() {
                           backfaceVisibility: 'hidden',
                           WebkitBackfaceVisibility: 'hidden',
                           transform: 'translateZ(0)',
-                          justifySelf: 'center',
-                          placeSelf: 'center',
                         }}
                       />
                     </div>
