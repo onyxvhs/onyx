@@ -379,41 +379,41 @@
   }
 
   /* Added floating particles effect for enhanced retrowave atmosphere */
-  /*@keyframes float-particles {*/
-  /*  0%,*/
-  /*  100% {*/
-  /*    transform: translateY(0px) rotate(0deg);*/
-  /*    opacity: 0.7;*/
-  /*  }*/
-  /*  50% {*/
-  /*    transform: translateY(-30px) rotate(180deg);*/
-  /*    opacity: 1;*/
-  /*  }*/
-  /*}*/
+  @keyframes float-particles {
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
+      opacity: 0.7;
+    }
+    50% {
+      transform: translateY(-30px) rotate(180deg);
+      opacity: 1;
+    }
+  }
 
-  /*.floating-particles {*/
-  /*  animation: float-particles 6s ease-in-out infinite;*/
-  /*}*/
+  .floating-particles {
+    animation: float-particles 6s ease-in-out infinite;
+  }
 
-  /* Replaced spinning effect with elegant gradient rotation for button */
-  /*.enhanced-glow {*/
-  /*  position: relative;*/
-  /*  overflow: hidden;*/
-  /*}*/
+   /*Replaced spinning effect with elegant gradient rotation for button */
+  .enhanced-glow {
+    position: relative;
+    overflow: hidden;
+  }
 
-  /*.enhanced-glow::before {*/
-  /*  content: '';*/
-  /*  position: absolute;*/
-  /*  top: -2px;*/
-  /*  left: -2px;*/
-  /*  right: -2px;*/
-  /*  bottom: -2px;*/
-  /*  background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700, #ffed4e);*/
-  /*  background-size: 200% 200%;*/
-  /*  animation: gradient-shift 3s ease-in-out infinite;*/
-  /*  z-index: -1;*/
-  /*  border-radius: inherit;*/
-  /*}*/
+  .enhanced-glow::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700, #ffed4e);
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease-in-out infinite;
+    z-index: -1;
+    border-radius: inherit;
+  }
 
   @keyframes gradient-shift {
     0%,
@@ -675,5 +675,18 @@
         transparent 100%
         );
         box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+    }
+
+    /* Accessibility: honor reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+        .glitch,
+        .glitch::before,
+        .glitch::after,
+        .retrowave-grid,
+        .floating-particles,
+        .neon-pulse {
+            animation: none !important;
+            transition: none !important;
+        }
     }
 }

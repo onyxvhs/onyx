@@ -128,6 +128,7 @@ export default function AdvantagesSection() {
                 role="button"
                 tabIndex={0}
                 aria-pressed={isTouch && flipped.has(index)}
+                aria-label={`${advantage.title}. ${isTouch || flipped ? advantage.description : 'Натисніть, щоб перевернути картку'}`}
               >
                 <div
                   className="card-flip-inner"
@@ -154,6 +155,7 @@ export default function AdvantagesSection() {
                           WebkitBackfaceVisibility: 'hidden',
                           transform: 'translateZ(0)',
                         }}
+                        sizes="(min-width: 1024px) 256px, (min-width: 768px) 320px, 100vw"
                       />
                     </div>
                   </div>
@@ -176,6 +178,7 @@ export default function AdvantagesSection() {
                           WebkitBackfaceVisibility: 'hidden',
                           transform: 'translateZ(0)',
                         }}
+                        sizes="(min-width: 1024px) 256px, (min-width: 768px) 320px, 100vw"
                       />
                       <div className="absolute inset-0 bg-black/60 flex flex-col justify-center items-center p-4 text-center">
                         <h3 className="text-xl lg:text-lg font-bold text-white mb-3 transition-colors leading-tight">
@@ -195,27 +198,27 @@ export default function AdvantagesSection() {
       </div>
 
       {/* Decorative TVs (responsive, behind content) */}
-      <TV className="hidden lg:block top-4 left-8 w-40 tv-screen">
+      <TV className="hidden lg:block top-6 left-8 w-40 tv-screen rotate-12">
         <span className="uppercase tracking-widest">ONYX FM</span>
       </TV>
 
-      <TV className="hidden lg:block top-16 right-32 w-44 tv-screen">
+      <TV className="hidden lg:block top-16 right-32 w-44 tv-screen -rotate-12">
         <span className="uppercase tracking-widest">LIVE 24/7</span>
       </TV>
 
-      <TV className="hidden md:block bottom-0 xl:bottom-12 left-12 w-36 tv-screen">
+      <TV className="hidden md:block bottom-0 xl:bottom-12 left-12 w-36 tv-screen -rotate-6">
         <span className="uppercase tracking-widest">NEWS</span>
       </TV>
 
-      <TV className="hidden md:block bottom-5 xl:bottom-20 right-12 w-40 tv-screen">
+      <TV className="hidden md:block bottom-5 xl:bottom-20 right-12 w-40 tv-screen rotate-12">
         <span className="uppercase tracking-widest">VIBES</span>
       </TV>
 
-      <TV className="hidden xl:block top-1/2 left-4 w-32 -translate-y-1/2 tv-screen">
+      <TV className="hidden xl:block top-1/2 left-4 w-32 -translate-y-1/2 tv-screen rotate-6">
         <span className="uppercase tracking-widest">ON AIR</span>
       </TV>
 
-      <TV className="hidden xl:block top-1/3 right-4 w-40 -translate-y-1/3 tv-screen">
+      <TV className="hidden xl:block top-1/3 right-4 w-40 -translate-y-1/3 tv-screen -rotate-6">
         <span className="uppercase tracking-widest">RETROWAVE</span>
       </TV>
     </section>

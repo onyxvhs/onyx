@@ -42,19 +42,38 @@ export default function HeaderSection() {
           </p>
         </motion.div>
       </div>
+
+      {/* Decorative elements - responsive positioning */}
       <motion.div
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}
-        className="absolute z-20 left-0 bottom-0"
+        className="absolute z-20 left-0 bottom-0 w-32 sm:w-48 md:w-64 lg:w-72"
+        style={{ maxWidth: '20vw' }}
       >
-        <Image src={'/star-img.png'} alt={'star'} width={275} height={373} />
+        <Image
+          src="/star-img.png"
+          alt="Декоративна зірка"
+          width={275}
+          height={373}
+          className="w-full h-auto object-contain"
+          loading="lazy"
+        />
       </motion.div>
+
       <motion.div
         initial={{ opacity: 0, x: 30 }}
         animate={{ opacity: 1, x: 0 }}
-        className="absolute z-20 right-0 bottom-60"
+        className="absolute z-20 right-0 bottom-32 sm:bottom-40 md:bottom-48 lg:bottom-60 w-24 sm:w-32 md:w-40 lg:w-48"
+        style={{ maxWidth: '15vw' }}
       >
-        <Image src={'/angle-img.png'} alt={'angle'} width={195} height={302} />
+        <Image
+          src="/angle-img.png"
+          alt="Декоративний кут"
+          width={195}
+          height={302}
+          className="w-full h-auto object-contain"
+          loading="lazy"
+        />
       </motion.div>
     </header>
   );

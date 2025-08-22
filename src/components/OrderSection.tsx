@@ -146,6 +146,7 @@ export default function OrderSection() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="relative bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-300 hover:from-yellow-300 hover:via-orange-300 hover:to-yellow-200 text-black font-bold px-20 py-2 md:py-4 text-3xl rounded-full neon-glow transition-colors duration-500 transform shadow-2xl border-4 border-yellow-300 group"
+              aria-label="Перейти до каталогу товарів для замовлення"
             >
               <span className="drop-shadow-2xl font-mono tracking-wider group-hover:tracking-widest transition-all duration-300">
                 ЗАМОВИТИ

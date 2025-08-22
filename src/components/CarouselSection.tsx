@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState, useCallback } from 'react';
+import { useEffect, useMemo, useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
@@ -83,6 +83,7 @@ export default function CarouselSection() {
   );
 
   const itemsPerPage = 5;
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   // Initialize active item by `active: true` or fallback to 0
   const initialActive = useMemo(() => {
@@ -92,6 +93,7 @@ export default function CarouselSection() {
 
   const [activeIndex, setActiveIndex] = useState<number>(initialActive);
   const [startIndex, setStartIndex] = useState<number>(0);
+  const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
 
   const maxStart = Math.max(products.length - itemsPerPage, 0);
 
@@ -115,21 +117,75 @@ export default function CarouselSection() {
   }, []);
 
   // Navigation that advances the selection (not just the window)
-  const prevItem = () => {
+  const prevItem = useCallback(() => {
     setActiveIndex((prev) => {
       const next = Math.max(prev - 1, 0);
       ensureVisible(next);
       return next;
     });
-  };
+  }, [ensureVisible]);
 
-  const nextItem = () => {
+  const nextItem = useCallback(() => {
     setActiveIndex((prev) => {
       const next = Math.min(prev + 1, products.length - 1);
       ensureVisible(next);
       return next;
     });
+  }, [products.length, ensureVisible]);
+
+  // Touch/swipe handling
+  const [touchStart, setTouchStart] = useState<number>(0);
+  const [touchEnd, setTouchEnd] = useState<number>(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
   };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextItem();
+    } else if (isRightSwipe) {
+      prevItem();
+    }
+  };
+
+  // Keyboard support
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevItem();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        nextItem();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        setActiveIndex(0);
+        ensureVisible(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        const lastIndex = products.length - 1;
+        setActiveIndex(lastIndex);
+        ensureVisible(lastIndex);
+      }
+    },
+    [prevItem, nextItem, products.length, ensureVisible]
+  );
+
+  // Image error handling
+  const handleImageError = useCallback((index: number) => {
+    setImageErrors((prev) => new Set(prev).add(index));
+  }, []);
 
   // Visible thumbnails for the current window
   const visibleProducts = products.slice(startIndex, startIndex + itemsPerPage);
@@ -138,17 +194,6 @@ export default function CarouselSection() {
   const title = selected.name.toUpperCase();
   const details = `Смак: ${selected.description.toLowerCase()}. Ідеально підходить для тих, хто цінує якість та автентичність.`;
 
-  // Keyboard support
-  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      prevItem();
-    } else if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      nextItem();
-    }
-  };
-
   return (
     <section
       id="product"
@@ -156,24 +201,34 @@ export default function CarouselSection() {
     >
       <div className="max-w-7xl mx-auto mb-16">
         <div
-          className="relative flex items-center justify-center"
+          ref={carouselRef}
+          className="relative flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-pink-400/50 focus:ring-offset-2 focus:ring-offset-transparent rounded-lg"
           tabIndex={0}
-          onKeyDown={onKeyDown}
-          aria-label="Перемикання товарів"
+          onKeyDown={handleKeyDown}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          role="tablist"
+          aria-label="Вибір продукту ONYX"
         >
           <button
             onClick={prevItem}
             disabled={activeIndex === 0}
             aria-label="Попередній продукт"
-            className="hidden md:flex absolute left-0 z-10 w-14 h-14 items-center justify-center bg-black/70 backdrop-blur-sm rounded-full neon-border hover:neon-glow transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group"
+            className="hidden md:flex absolute left-0 z-10 w-14 h-14 items-center justify-center bg-black/70 backdrop-blur-sm rounded-full neon-border hover:neon-glow transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:neon-border group"
           >
-            <ChevronLeft className="w-7 h-7 text-white group-hover:text-pink-400 transition-colors" />
+            <ChevronLeft
+              className="w-7 h-7 text-white group-hover:text-pink-400 transition-colors"
+              aria-hidden="true"
+            />
           </button>
 
           <div className="flex justify-center gap-6 overflow-x-auto md:overflow-hidden pb-4 px-4 max-w-3xl snap-x">
             {visibleProducts.map((product, idx) => {
               const actualIndex = startIndex + idx;
               const isActive = actualIndex === activeIndex;
+              const hasError = imageErrors.has(actualIndex);
+
               return (
                 <motion.div
                   key={actualIndex}
@@ -185,28 +240,41 @@ export default function CarouselSection() {
                     setActiveIndex(actualIndex);
                     ensureVisible(actualIndex);
                   }}
-                  role="button"
-                  aria-pressed={isActive}
-                  aria-current={isActive}
-                  className={`flex-shrink-0 cursor-pointer transition-all duration-300 pt-10 snap-center ${
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setActiveIndex(actualIndex);
+                      ensureVisible(actualIndex);
+                    }
+                  }}
+                  role="tab"
+                  tabIndex={isActive ? 0 : -1}
+                  aria-selected={isActive}
+                  aria-controls={`product-details`}
+                  className={`flex-shrink-0 cursor-pointer transition-all duration-300 py-10 snap-center rounded-lg ${
                     isActive ? 'scale-110' : 'hover:scale-105'
                   }`}
                 >
                   <div
                     className={`w-32 h-24 rounded-lg overflow-hidden transition-all duration-300 ${
-                      isActive
-                        ? 'neon-border-pink neon-pulse'
-                        : 'neon-border hover:neon-glow'
+                      isActive ? 'neon-border-pink' : 'neon-border'
                     }`}
                   >
-                    <Image
-                      src={product.image || '/placeholder.svg'}
-                      alt={product.name}
-                      width={128}
-                      height={96}
-                      className="w-32 h-24 object-cover"
-                      priority={isActive}
-                    />
+                    {hasError ? (
+                      <div className="w-32 h-24 bg-gray-800 flex items-center justify-center">
+                        <span className="text-gray-400 text-xs">No Image</span>
+                      </div>
+                    ) : (
+                      <Image
+                        src={product.image || '/placeholder.svg'}
+                        alt={`${product.name} - тютюн для кальяну`}
+                        width={128}
+                        height={96}
+                        className="w-32 h-24 object-cover"
+                        priority={isActive}
+                        onError={() => handleImageError(actualIndex)}
+                      />
+                    )}
                   </div>
                   <p
                     className={`text-center text-sm mt-3 transition-colors duration-300 font-mono ${
@@ -224,10 +292,20 @@ export default function CarouselSection() {
             onClick={nextItem}
             disabled={activeIndex === products.length - 1}
             aria-label="Наступний продукт"
-            className="hidden md:flex absolute right-0 z-10 w-14 h-14 items-center justify-center bg-black/70 backdrop-blur-sm rounded-full neon-border hover:neon-glow transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group"
+            className="hidden md:flex absolute right-0 z-10 w-14 h-14 items-center justify-center bg-black/70 backdrop-blur-sm rounded-full neon-border hover:neon-glow transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:neon-border group"
           >
-            <ChevronRight className="w-7 h-7 text-white group-hover:text-pink-400 transition-colors" />
+            <ChevronRight
+              className="w-7 h-7 text-white group-hover:text-pink-400 transition-colors"
+              aria-hidden="true"
+            />
           </button>
+        </div>
+
+        {/* Mobile swipe hint */}
+        <div className="md:hidden text-center mt-4">
+          <p className="text-white/50 text-sm font-mono">
+            ← Проведіть для перегляду →
+          </p>
         </div>
       </div>
 
@@ -248,14 +326,21 @@ export default function CarouselSection() {
                 transition={{ duration: 0.4 }}
                 className="relative"
               >
-                <Image
-                  src={selected.image || '/placeholder.svg'}
-                  alt={selected.name}
-                  width={640}
-                  height={640}
-                  className="w-full max-w-md mx-auto rounded-xl neon-glow h-auto"
-                  priority
-                />
+                {imageErrors.has(activeIndex) ? (
+                  <div className="w-full max-w-md mx-auto h-64 bg-gray-800 rounded-xl neon-glow flex items-center justify-center">
+                    <span className="text-gray-400">Зображення недоступне</span>
+                  </div>
+                ) : (
+                  <Image
+                    src={selected.image || '/placeholder.svg'}
+                    alt={`${selected.name} - тютюн для кальяну ONYX`}
+                    width={640}
+                    height={640}
+                    className="w-full max-w-md mx-auto rounded-xl neon-glow h-auto"
+                    priority
+                    onError={() => handleImageError(activeIndex)}
+                  />
+                )}
               </motion.div>
             </AnimatePresence>
           </motion.div>
@@ -265,6 +350,9 @@ export default function CarouselSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="space-y-6"
+            id="product-details"
+            role="tabpanel"
+            aria-live="polite"
           >
             <AnimatePresence mode="wait">
               <motion.div

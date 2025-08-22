@@ -72,6 +72,10 @@ export const PersistentButton = ({
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           layout
+          role="button"
+          aria-roledescription="call to action"
+          tabIndex={0}
+          aria-label="Перейти до каталогу смаків"
         >
           {/* Background layers similar to OrderSection */}
           <div className="absolute inset-0 bg-gradient-to-br from-purple-900/90 via-black/95 to-purple-900/90" />
@@ -95,17 +99,6 @@ export const PersistentButton = ({
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,oklch(0.7_0.25_320_/_0.25)_0%,transparent_70%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_70%,oklch(0.6_0.3_180_/_0.25)_0%,transparent_70%)]" />
 
-          {/* Animated scanning line */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/15 to-transparent w-full h-0.5 sm:h-1"
-            animate={{ y: ['-100%', '100%'] }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-          />
-
           {/* Glow effect */}
           <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/8 via-orange-400/8 to-yellow-400/8 rounded-lg sm:rounded-xl md:rounded-2xl blur-lg" />
 
@@ -126,6 +119,10 @@ export const PersistentButton = ({
                 width={20}
                 height={20}
                 className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 drop-shadow-[0_0_6px_rgba(0,255,255,0.4)] sm:drop-shadow-[0_0_8px_rgba(0,255,255,0.5)]"
+                sizes="(min-width: 1024px) 32px, (min-width: 768px) 28px, 24px"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
               />
             </motion.div>
 
