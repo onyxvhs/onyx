@@ -1,14 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function HeaderSection() {
   return (
-    <header className="relative h-screen overflow-hidden">
+    <header className="relative h-screen overflow-x-hidden fade-edge fade-edge-bottom fade-edge-cyberpunk fade-edge-lg">
       <div className="absolute inset-0">
-        <img
+        <Image
           src="/cyberpunk-retrowave-neon-city.png"
           alt="Cyberpunk background"
+          width={1024}
+          height={681}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/30"></div>
@@ -39,6 +42,22 @@ export default function HeaderSection() {
           </p>
         </motion.div>
       </div>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1 }}
+        className="absolute z-20 left-0 bottom-0"
+      >
+        <Image src={'/star-img.png'} alt={'star'} width={275} height={373} />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1 }}
+        className="absolute z-20 right-0 bottom-60"
+      >
+        <Image src={'/angle-img.png'} alt={'angle'} width={195} height={302} />
+      </motion.div>
     </header>
   );
 }

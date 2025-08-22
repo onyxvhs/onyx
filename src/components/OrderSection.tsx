@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
 
 export default function OrderSection() {
   const [mounted, setMounted] = useState(false);
@@ -40,7 +39,7 @@ export default function OrderSection() {
   }, [mounted, particleCount]);
 
   return (
-    <section className="py-32 px-4 relative bg-gradient-to-b from-purple-900/20 via-black/80 to-purple-900/20 overflow-hidden">
+    <section className="py-32 px-4 relative bg-gradient-to-b from-purple-900/20 via-black/80 to-purple-900/20 overflow-hidden fade-edge fade-edge-bottom fade-edge-top fade-edge-lg fade-edge-cyberpunk">
       {/* Decorative background layers */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden>
         {/* Neon grid background */}
@@ -88,7 +87,7 @@ export default function OrderSection() {
 
         {/* Floating geometric elements */}
         <motion.div
-          className="absolute top-20 left-20 w-40 h-40 border-2 border-cyan-400/40 rotate-45"
+          className="absolute top-10 left-0 md:top-20 md:left-20 xl:left-52 w-40 h-40 border-2 border-cyan-400/40 rotate-45"
           animate={{ rotate: [45, 405] }}
           transition={{
             duration: 20,
@@ -98,13 +97,13 @@ export default function OrderSection() {
           aria-hidden
         />
         <motion.div
-          className="absolute bottom-20 right-20 w-32 h-32 border-2 border-pink-400/40 rounded-full"
+          className="absolute bottom-10 right-5 md:bottom-20 md:right-20 w-32 h-32 border-2 border-pink-400/40 rounded-full"
           animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.8, 0.4] }}
           transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
           aria-hidden
         />
         <motion.div
-          className="absolute top-1/2 left-10 w-20 h-20 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-lg"
+          className="absolute top-3/4 md:top-2/3 left-10 w-20 h-20 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-lg"
           animate={{ y: [-20, 20, -20], rotate: [0, 180, 360] }}
           transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY }}
           aria-hidden
@@ -143,11 +142,15 @@ export default function OrderSection() {
               style={{ animationDelay: '1s' }}
             />
 
-            <Button className="relative bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-300 hover:from-yellow-300 hover:via-orange-300 hover:to-yellow-200 text-black font-bold px-20 py-8 text-3xl rounded-full neon-glow transition-all duration-500 transform hover:scale-110 shadow-2xl border-4 border-yellow-300 group">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-300 hover:from-yellow-300 hover:via-orange-300 hover:to-yellow-200 text-black font-bold px-20 py-2 md:py-4 text-3xl rounded-full neon-glow transition-colors duration-500 transform shadow-2xl border-4 border-yellow-300 group"
+            >
               <span className="drop-shadow-2xl font-mono tracking-wider group-hover:tracking-widest transition-all duration-300">
                 ЗАМОВИТИ
               </span>
-            </Button>
+            </motion.button>
           </div>
 
           <motion.div

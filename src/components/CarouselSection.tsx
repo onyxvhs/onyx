@@ -150,7 +150,10 @@ export default function CarouselSection() {
   };
 
   return (
-    <section className="py-20 px-4 relative bg-gradient-to-b from-black/50 via-purple-900/20 to-black/50">
+    <section
+      id="product"
+      className="py-20 px-4 relative bg-gradient-to-b from-black/50 via-purple-900/20 to-black/50 fade-edge fade-edge-bottom fade-edge-top fade-edge-sm fade-edge-cyberpunk"
+    >
       <div className="max-w-7xl mx-auto mb-16">
         <div
           className="relative flex items-center justify-center"

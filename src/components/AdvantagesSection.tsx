@@ -97,7 +97,7 @@ export default function AdvantagesSection() {
   ];
 
   return (
-    <section className="py-32 px-4 relative bg-gradient-to-b from-purple-900/30 via-black/50 to-purple-900/30 ">
+    <section className="py-32 px-4 relative bg-gradient-to-b from-purple-900/30 via-black/50 to-purple-900/30 fade-edge fade-edge-bottom fade-edge-top fade-edge-sm fade-edge-cyberpunk">
       <div className="max-w-4xl mx-auto relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -109,7 +109,7 @@ export default function AdvantagesSection() {
           Пікантні переваги
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 md:gap-y-20 justify-items-center p-4 md:p-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 md:gap-y-20 justify-items-center p-4 md:p-0 md:my-10">
           {advantages.map((advantage, index) => (
             <motion.div
               key={index}
@@ -147,12 +147,14 @@ export default function AdvantagesSection() {
                         alt={`${advantage.title} - Back`}
                         width={320}
                         height={300}
-                        className="w-full h-full object-contain"
+                        className="w-4/5 object-center sm:w-full h-full object-contain"
                         draggable={false}
                         style={{
                           backfaceVisibility: 'hidden',
                           WebkitBackfaceVisibility: 'hidden',
                           transform: 'translateZ(0)',
+                          justifySelf: 'center',
+                          placeSelf: 'center',
                         }}
                       />
                     </div>
@@ -195,19 +197,19 @@ export default function AdvantagesSection() {
       </div>
 
       {/* Decorative TVs (responsive, behind content) */}
-      <TV className="hidden lg:block top-8 left-8 w-40 tv-screen">
+      <TV className="hidden lg:block top-4 left-8 w-40 tv-screen">
         <span className="uppercase tracking-widest">ONYX FM</span>
       </TV>
 
-      <TV className="hidden lg:block top-16 right-8 w-44 tv-screen">
+      <TV className="hidden lg:block top-16 right-32 w-44 tv-screen">
         <span className="uppercase tracking-widest">LIVE 24/7</span>
       </TV>
 
-      <TV className="hidden md:block bottom-12 left-12 w-36 tv-screen">
+      <TV className="hidden md:block bottom-0 xl:bottom-12 left-12 w-36 tv-screen">
         <span className="uppercase tracking-widest">NEWS</span>
       </TV>
 
-      <TV className="hidden md:block bottom-20 right-12 w-40 tv-screen">
+      <TV className="hidden md:block bottom-5 xl:bottom-20 right-12 w-40 tv-screen">
         <span className="uppercase tracking-widest">VIBES</span>
       </TV>
 

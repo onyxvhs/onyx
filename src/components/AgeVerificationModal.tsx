@@ -32,8 +32,8 @@ export default function AgeVerificationModal({
             <div className="absolute top-4 right-4 flex items-center gap-2">
               <div className="flex justify-center md:justify-end items-center gap-2 mt-3">
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                   className="flex items-center gap-1 px-2 py-1 bg-blue-500/20 backdrop-blur-sm border border-blue-400/50 rounded-full hover:bg-blue-500/30 transition-all duration-300 neon-border-cyan group"
                 >
                   <div className="w-4 h-4 rounded-full bg-blue-500 border border-yellow-400 flex items-center justify-center">
@@ -45,8 +45,8 @@ export default function AgeVerificationModal({
                 </motion.button>
 
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                   className="flex items-center gap-1 px-2 py-1 bg-red-500/20 backdrop-blur-sm border border-red-400/50 rounded-full hover:bg-red-500/30 transition-all duration-300 neon-border group"
                 >
                   <div className="w-4 h-4 rounded-full bg-red-500 border border-white flex items-center justify-center">
@@ -60,14 +60,14 @@ export default function AgeVerificationModal({
             </div>
 
             {/* Character image placeholder */}
-            <div className="flex justify-center md:justify-start mb-6 mt-10 md:mt-4">
+            <div className="flex justify-center mb-6 mt-14">
               <div className="relative">
                 <Image
                   src="/age-verif-img.png"
                   alt="Cyberpunk Character"
                   width={530}
                   height={370}
-                  className="w-60 h-48 object-cover rounded-lg neon-glow"
+                  className="w-60 h-48 object-cover rounded-lg drop-shadow-xl drop-shadow-pink-500"
                 />
                 <div className="absolute -top-2 -right-2 w-12 h-12 bg-white rounded-full flex items-center justify-center text-black font-bold text-lg">
                   18+
