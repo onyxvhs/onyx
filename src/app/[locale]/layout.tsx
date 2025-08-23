@@ -76,7 +76,7 @@ export async function generateMetadata({
       alternateLocale: ['en_US', 'uk_UA'],
       images: [
         {
-          url: 'https://onyx-prod.vercel.app/og-image.png',
+          url: 'https://onyx-official.vercel.app/og-image.png',
           alt: 'ONYX',
           width: 1102,
           height: 406,
@@ -91,7 +91,7 @@ export async function generateMetadata({
       site: siteUrl,
       images: [
         {
-          url: 'https://onyx-prod.vercel.app/og-image.png',
+          url: 'https://onyx-official.vercel.app/og-image.png',
           alt: 'ONYX',
           width: 1102,
           height: 406,
