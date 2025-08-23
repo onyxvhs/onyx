@@ -37,6 +37,7 @@ export async function generateMetadata({
     notFound();
   }
   const currentLocale = defineCurrentLocale(locale as Locale);
+  const siteUrl = 'https://www.onyx-wave.com';
 
   return {
     title: tMeta('title'),
@@ -71,14 +72,43 @@ export async function generateMetadata({
       description: tMeta('description'),
       type: 'website',
       locale: currentLocale,
+      url: siteUrl,
       alternateLocale: ['en_US', 'uk_UA'],
+      images: [
+        {
+          url: '/og-image.png',
+          alt: 'ONYX',
+          width: 1102,
+          height: 406,
+          type: 'image/png',
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: tMeta('title'),
       description: tMeta('description'),
+      site: siteUrl,
+      images: [
+        {
+          url: '/og-image.png',
+          alt: 'ONYX',
+          width: 1102,
+          height: 406,
+          type: 'image/png',
+        },
+      ],
     },
     robots: 'index, follow',
+    metadataBase: new URL('https://www.onyx-wave.com'),
+    alternates: {
+      canonical: siteUrl,
+      languages: {
+        'en-US': `${siteUrl}/en`,
+        'uk-UA': `${siteUrl}/ua`,
+        'x-default': `${siteUrl}/ua`,
+      },
+    },
   };
 }
 
@@ -102,6 +132,30 @@ export default async function RootLayout({
   if (!routing.locales.includes(locale as Locale)) {
     notFound();
   }
+
+  const jsonLdData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': 'https://www.onyx-wave.com#website',
+    url: 'https://www.onyx-wave.com',
+    inLanguage: 'en-US',
+    name: 'ONYX',
+    description:
+      'ONYX creates a next-generation atmosphere: nicotine-free hookah products based on hibiscus with natural flavors. Pure taste, vibrant vibe, and an entirely new style of relaxation.',
+    publisher: {
+      '@type': 'Organization',
+      '@id': 'https://www.onyx-wave.com#person',
+      name: 'ONYX',
+      sameAs: ['https://t.me/get_onyx'],
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.onyx-wave.com/web-app-manifest-512x512.png',
+        width: 512,
+        height: 512,
+      },
+    },
+  };
+
   return (
     <html lang={currentLocale}>
       <head>
@@ -119,6 +173,10 @@ export default async function RootLayout({
         <meta
           name="apple-mobile-web-app-status-bar-style"
           content="black-translucent"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
         />
       </head>
       <body
