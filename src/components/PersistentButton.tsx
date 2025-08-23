@@ -132,11 +132,18 @@ export const PersistentButton = ({
                   animate={{ opacity: 1, width: 'auto' }}
                   exit={{ opacity: 0, width: 0 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
-                  className="text-white font-mono text-sm whitespace-nowrap overflow-hidden glitch"
-                  data-text={tModal('exploreTastes')}
+                  className="text-white font-mono text-sm whitespace-nowrap overflow-hidden"
                 >
-                  <span className="sm:hidden">{tModal('tastes')}</span>
-                  <span className="hidden sm:inline">
+                  <span
+                    className="sm:hidden glitch"
+                    data-text={tModal('tastes')}
+                  >
+                    {tModal('tastes')}
+                  </span>
+                  <span
+                    className="hidden sm:inline glitch"
+                    data-text={tModal('exploreTastes')}
+                  >
                     {tModal('exploreTastes')}
                   </span>
                 </motion.span>

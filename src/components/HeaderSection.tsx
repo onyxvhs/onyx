@@ -15,6 +15,7 @@ export default function HeaderSection() {
           width={1024}
           height={681}
           className="w-full h-full object-cover"
+          priority={true}
         />
         <div className="absolute inset-0 bg-black/30"></div>
       </div>
