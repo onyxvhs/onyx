@@ -76,10 +76,10 @@ export async function generateMetadata({
       alternateLocale: ['en_US', 'uk_UA'],
       images: [
         {
-          url: 'https://onyx-official.vercel.app/og-image.png',
+          url: 'https://onyx-alter.vercel.app/og-image.png',
           alt: 'ONYX',
-          width: 1102,
-          height: 406,
+          width: 1200,
+          height: 630,
           type: 'image/png',
         },
       ],
@@ -91,10 +91,10 @@ export async function generateMetadata({
       site: siteUrl,
       images: [
         {
-          url: 'https://onyx-official.vercel.app/og-image.png',
+          url: 'https://onyx-alter.vercel.app/og-image.png',
           alt: 'ONYX',
-          width: 1102,
-          height: 406,
+          width: 1200,
+          height: 630,
           type: 'image/png',
         },
       ],
