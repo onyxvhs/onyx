@@ -76,7 +76,7 @@ export async function generateMetadata({
       alternateLocale: ['en_US', 'uk_UA'],
       images: [
         {
-          url: '/og-image.png',
+          url: 'https://onyx-prod.vercel.app/og-image.png',
           alt: 'ONYX',
           width: 1102,
           height: 406,
@@ -91,7 +91,7 @@ export async function generateMetadata({
       site: siteUrl,
       images: [
         {
-          url: '/og-image.png',
+          url: 'https://onyx-prod.vercel.app/og-image.png',
           alt: 'ONYX',
           width: 1102,
           height: 406,
@@ -133,29 +133,6 @@ export default async function RootLayout({
     notFound();
   }
 
-  const jsonLdData = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    '@id': 'https://www.onyx-wave.com#website',
-    url: 'https://www.onyx-wave.com',
-    inLanguage: 'en-US',
-    name: 'ONYX',
-    description:
-      'ONYX creates a next-generation atmosphere: nicotine-free hookah products based on hibiscus with natural flavors. Pure taste, vibrant vibe, and an entirely new style of relaxation.',
-    publisher: {
-      '@type': 'Organization',
-      '@id': 'https://www.onyx-wave.com#person',
-      name: 'ONYX',
-      sameAs: ['https://t.me/get_onyx'],
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://www.onyx-wave.com/web-app-manifest-512x512.png',
-        width: 512,
-        height: 512,
-      },
-    },
-  };
-
   return (
     <html lang={currentLocale}>
       <head>
@@ -173,10 +150,6 @@ export default async function RootLayout({
         <meta
           name="apple-mobile-web-app-status-bar-style"
           content="black-translucent"
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
         />
       </head>
       <body
