@@ -3,6 +3,9 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import { usePathname as useI18nPathname } from '@/i18n/navigation';
+import { LanguageSwitchers } from '@/components/LanguageSwitchers';
+import { useTranslations } from 'use-intl';
 
 interface AgeVerificationModalProps {
   isOpen: boolean;
@@ -13,6 +16,8 @@ export default function AgeVerificationModal({
   isOpen,
   onVerify,
 }: AgeVerificationModalProps) {
+  const pathname = useI18nPathname();
+  const tModal = useTranslations('Modals');
   return (
     <AnimatePresence>
       {isOpen && (
@@ -26,38 +31,14 @@ export default function AgeVerificationModal({
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
-            className="max-w-md w-full mx-4 p-8 rounded-3xl cyber-gradient max-h-screen overflow-y-auto"
+            className="max-w-md w-full mx-4 p-6 rounded-3xl cyber-gradient max-h-screen overflow-y-auto"
           >
             {/* Character image placeholder */}
             <div className="flex flex-col justify-center">
               {/* Language selector */}
               <div className="flex items-center gap-4 self-end pb-10">
                 <div className="flex justify-center md:justify-end items-center gap-2 mt-3">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="flex items-center justify-center gap-1 px-2 py-1 bg-blue-500/20 backdrop-blur-sm border border-blue-400/50 rounded-full hover:bg-blue-500/30 transition-colors duration-400 neon-border group"
-                  >
-                    <div className="w-4 h-4 rounded-full bg-blue-500 border border-yellow-400 flex items-center justify-center">
-                      <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                    </div>
-                    <span className="text-white font-mono text-xs group-hover:text-cyan-300">
-                      UA
-                    </span>
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="flex items-center gap-1 px-2 py-1 bg-red-500/20 backdrop-blur-sm border border-red-400/50 rounded-full hover:bg-red-500/30 transition-colors duration-400 neon-border group"
-                  >
-                    <div className="w-4 h-4 rounded-full bg-red-500 border border-white flex items-center justify-center">
-                      <div className="w-2 h-2 bg-white rounded-sm"></div>
-                    </div>
-                    <span className="text-white font-mono text-xs group-hover:text-red-300">
-                      EN
-                    </span>
-                  </motion.button>
+                  <LanguageSwitchers pathname={pathname} />
                 </div>
               </div>
 
@@ -79,31 +60,40 @@ export default function AgeVerificationModal({
             <div className="text-center mb-8">
               <h1
                 className="text-3xl font-bold text-white mb-4 glitch"
-                data-text="Чи є тобі 18+ років?"
+                data-text={tModal('ageSubmit')}
               >
-                Чи є тобі 18+ років?
+                {tModal('ageSubmit')}
               </h1>
               <p className="text-white/80 text-sm leading-relaxed">
-                Цей інтернет-магазин містить товари для повнолітніх.
+                {tModal('productPlaced')}
                 <br />
-                Для того, щоб продовжити, підтвердіть свій вік.
+                {tModal('toContinue')}
               </p>
             </div>
 
             {/* Buttons */}
             <div className="flex gap-4">
-              <Button
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{
+                  duration: 0.4,
+                }}
                 onClick={onVerify}
-                className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-4 rounded-full text-lg transition-all duration-300 neon-glow"
+                className="flex-1 p-2 bg-yellow-400 hover:bg-transparent text-black hover:text-yellow-400 hover:border-2 hover:border-yellow-400 font-bold rounded-xl text-lg transition-colors duration-400 cursor-pointer"
               >
-                Так, є
-              </Button>
-              <Button
-                variant="outline"
-                className="flex-1 border-2 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white font-bold py-4 rounded-full text-lg transition-all duration-300 bg-transparent"
+                {tModal('yes')}
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{
+                  duration: 0.4,
+                }}
+                className="flex-1 p-2 border-2 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white font-bold rounded-xl text-lg transition-colors duration-400 bg-transparent cursor-pointer"
               >
-                Ні, немає
-              </Button>
+                {tModal('no')}
+              </motion.button>
             </div>
           </motion.div>
         </motion.div>

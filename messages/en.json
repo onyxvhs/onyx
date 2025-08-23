@@ -1,0 +1,165 @@
+{
+  "Meta" : {
+    "": "",
+    "title": "ONYX — nicotine-free hookah mix",
+    "description": "ONYX creates a next-generation atmosphere: nicotine-free hookah products based on hibiscus with natural flavors. Pure taste, vibrant vibe, and an entirely new style of relaxation."
+  },
+  "Modals": {
+    "": "",
+    "ageSubmit": "Are you 18+ years old?",
+    "productPlaced": "This resource contains products intended for adults.",
+    "toContinue": "To continue, please confirm your age.",
+    "yes": "Yes, I am",
+    "no": "No, I am not",
+    "tastes": "Flavors",
+    "exploreTastes": "Explore flavors"
+  },
+  "HeaderSection": {
+    "": "",
+    "title": "ONYX — it’s a vibe",
+    "subTitle": "Neon, style, atmosphere. We’re not like the others — and neither are you."
+  },
+  "AdvantageSection": {
+    "": "",
+    "header": "Spicy Advantages",
+    "1": {
+      "title": "Fiery character",
+      "description": "ONYX easily takes three coals. Want heat? You’ll get it."
+    },
+    "2": {
+      "title": "Says \"MANGO\"? You’ll get mango",
+      "description": "No surprises. What’s on the label is exactly what you’ll taste."
+    },
+    "3": {
+      "title": "A session that doesn’t end",
+      "description": "Up to 2 hours of stable vibes. No need to repack."
+    },
+    "4": {
+      "title": "Not chemistry — Aesthetics",
+      "description": "Fruits taste like fruits. Berries like they’re from the forest. Naturalness always sounds better."
+    },
+    "5": {
+      "title": "A lot — and that’s putting it mildly",
+      "description": "ONYX fills the space with smoke so thick it becomes part of it."
+    },
+    "6": {
+      "title": "A hookah that doesn’t need care",
+      "description": "ONYX is heat-resistant, stable, and requires no attention. Perfect for hookah lounges and HoReCa."
+    }
+  },
+  "CarouselSection": {
+    "": "",
+    "mainImage": "main product image",
+    "noImage": "Image unavailable",
+    "ariaPrev": "Previous product",
+    "ariaNext": "Next product",
+    "prev": "Previous",
+    "next": "Next",
+    "taste": "Flavor",
+    "chooseTaste": "Choose flavor",
+    "choose": "Choose",
+    "moveToSlide": "Move to slide",
+    "swipeHint": "← Swipe to browse →",
+    "product": {
+      "pinkman": {
+        "name": "Pinkman",
+        "description": "Grapefruit, raspberry, and strawberry: a bright tangy-berry wave with a clean citrus finish, without cloying sweetness",
+        "tasteDescription": "tangy-berry citrus"
+      },
+      "supernova": {
+        "name": "Supernova",
+        "description": "Intense ice effect without its own flavor; adds deep coolness to any mix and refreshes solo",
+        "tasteDescription": "maximum cold, flavorless"
+      },
+      "banana": {
+        "name": "Banana",
+        "description": "Ripe banana with soft creaminess on the exhale and a rounded, sweet aftertaste",
+        "tasteDescription": "creamy banana, sweet"
+      },
+      "energy": {
+        "name": "Energy",
+        "description": "Classic energy drink taste: citrus sweetness and a tonic spark, without bitterness",
+        "tasteDescription": "sweet citrus, energy boost"
+      },
+      "kiwi": {
+        "name": "Kiwi",
+        "description": "Juicy kiwi with a precise sweet-sour balance and fresh green notes; universal for mixes",
+        "tasteDescription": "sweet-sour kiwi"
+      },
+      "lemongrass": {
+        "name": "Lemongrass",
+        "description": "Herbal-citrus freshness with a light tea shade; very refreshing",
+        "tasteDescription": "herbal-citrus"
+      },
+      "strawberry": {
+        "name": "Strawberry",
+        "description": "Ripe strawberry with natural berry flavor and a clean profile — no artificial notes",
+        "tasteDescription": "natural strawberry"
+      },
+      "lemon": {
+        "name": "Lemon",
+        "description": "Bright lemon with expressive citrus and a clean, pleasantly tart aftertaste",
+        "tasteDescription": "pure lemon, tangy"
+      },
+      "peach": {
+        "name": "Peach Tea",
+        "description": "Smooth black tea with ripe peach; no chill, long velvety aftertaste",
+        "tasteDescription": "peach + black tea"
+      },
+      "pineapple": {
+        "name": "Pineapple",
+        "description": "That very taste of pineapple rings: juicy, tropical-bright, with a light sourness.",
+        "tasteDescription": "tropical pineapple"
+      },
+      "mango": {
+        "name": "Mango Yogurt",
+        "description": "Dessert mango with creamy-yogurt notes; rich and delicate profile",
+        "tasteDescription": "mango, creamy yogurt"
+      },
+      "grape": {
+        "name": "Grape",
+        "description": "Ripe dark grapes: juicy start and light skin tartness, without candy-like artificiality",
+        "tasteDescription": "dark grapes, tart"
+      },
+      "wild": {
+        "name": "Wild Strawberry",
+        "description": "Fragrant wild strawberry with a delicate tartness and a natural ‘field’ character",
+        "tasteDescription": "wild strawberry, gentle tartness"
+      }
+    }
+  },
+  "OrderSection": {
+    "": "",
+    "order": "ORDER",
+    "uReady": "Ready for a new vibe?",
+    "joinUs": "Join the ONYX revolution"
+  },
+  "ContactSection": {
+    "": "",
+    "messages": {
+      "1": "Hello, Miami! I want to order ONYX...",
+      "2": "Remember when we were analog? Need a hookah...",
+      "3": "Outrun the night with ONYX tobacco...",
+      "4": "Neon lights, late nights, and your tobacco...",
+      "5": "Drive through the city with a new flavor...",
+      "6": "Cyberdyne Systems approved! But first, a hookah...",
+      "7": "VHS quality, the future of taste...",
+      "8": "Ready for 2085? Let’s start with ONYX..."
+    },
+    "connectUs": "Connect with us",
+    "tel": "Phone",
+    "autoFormat": "autoformatting",
+    "example": "Example",
+    "message": "Message",
+    "sending": "Sending...",
+    "send": "Send → Sync",
+    "success": "Message sent.",
+    "fail": "Failed to send. Please try again later."
+  },
+  "FooterSection": {
+    "": "",
+    "contacts": "Contacts",
+    "orders": "Orders",
+    "socials": "Social media"
+  }
+}

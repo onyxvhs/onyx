@@ -2,8 +2,10 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'use-intl';
 
 export default function OrderSection() {
+  const tOrd = useTranslations('OrderSection');
   const [mounted, setMounted] = useState(false);
   const [isCoarse, setIsCoarse] = useState(false);
 
@@ -145,11 +147,11 @@ export default function OrderSection() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="relative bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-300 hover:from-yellow-300 hover:via-orange-300 hover:to-yellow-200 text-black font-bold px-20 py-2 md:py-4 text-3xl rounded-full neon-glow transition-colors duration-500 transform shadow-2xl border-4 border-yellow-300 group"
+              className="relative bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-300 hover:from-yellow-300 hover:via-orange-300 hover:to-yellow-200 text-black font-bold px-6 sm:px-20 py-2 md:py-4 text-3xl rounded-full neon-glow transition-colors duration-500 transform shadow-2xl border-4 border-yellow-300 group"
               aria-label="Перейти до каталогу товарів для замовлення"
             >
               <span className="drop-shadow-2xl font-mono tracking-wider group-hover:tracking-widest transition-all duration-300">
-                ЗАМОВИТИ
+                {tOrd('order')}
               </span>
             </motion.button>
           </div>
@@ -163,12 +165,12 @@ export default function OrderSection() {
           >
             <p
               className="text-white/80 text-xl font-mono glitch"
-              data-text="Готовий до нового вайбу?"
+              data-text={tOrd('uReady')}
             >
-              Готовий до нового вайбу?
+              {tOrd('uReady')}
             </p>
             <p className="text-pink-400/70 text-lg font-mono">
-              Приєднуйся до ONYX революції
+              {tOrd('joinUs')}
             </p>
           </motion.div>
         </motion.div>

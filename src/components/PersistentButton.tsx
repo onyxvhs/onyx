@@ -3,12 +3,14 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { useTranslations } from 'use-intl';
 
 export const PersistentButton = ({
   isAgeVerified,
 }: {
   isAgeVerified: boolean;
 }) => {
+  const tModal = useTranslations('Modals');
   const [isExpanded, setIsExpanded] = useState(true);
   const [showButton, setShowButton] = useState(true);
   const [showTooltip, setShowTooltip] = useState(true);
@@ -23,7 +25,7 @@ export const PersistentButton = ({
       // Hide tooltip after 10 seconds on larger screens
       const tooltipTimer = setTimeout(() => {
         setShowTooltip(false);
-      }, 10000);
+      }, 5000);
 
       return () => {
         clearTimeout(collapseTimer);
@@ -33,14 +35,10 @@ export const PersistentButton = ({
   }, [isAgeVerified]);
 
   const handleClick = () => {
-    // Scroll to OrderSection or handle flavor exploration
-    const orderSection =
-      document.querySelector('[data-section="product"]') ||
-      document.querySelector(
-        'section[class*="bg-gradient-to-b from-purple-900/30 via-black/50 to-purple-800/20"]'
-      );
-    if (orderSection) {
-      orderSection.scrollIntoView({ behavior: 'smooth' });
+    // Scroll to ProductSection or handle flavor exploration
+    const productSection = document.getElementById('product');
+    if (productSection) {
+      productSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -135,11 +133,11 @@ export const PersistentButton = ({
                   exit={{ opacity: 0, width: 0 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                   className="text-white font-mono text-sm whitespace-nowrap overflow-hidden glitch"
-                  data-text="Ознайомитись зі смаками"
+                  data-text={tModal('exploreTastes')}
                 >
-                  <span className="sm:hidden">Смаки</span>
+                  <span className="sm:hidden">{tModal('tastes')}</span>
                   <span className="hidden sm:inline">
-                    Ознайомитись зі смаками
+                    {tModal('exploreTastes')}
                   </span>
                 </motion.span>
               )}
@@ -208,7 +206,7 @@ export const PersistentButton = ({
               exit={{ opacity: 0, y: 10 }}
               className="absolute bottom-full right-0 mb-1.5 sm:mb-2 px-2 sm:px-3 py-1 bg-black/90 text-white text-xs rounded-md sm:rounded-lg whitespace-nowrap font-mono border border-cyan-400/30 hidden sm:block"
             >
-              Ознайомитись зі смаками
+              {tModal('exploreTastes')}
               <div className="absolute top-full right-2 sm:right-3 border-l-4 border-r-4 border-t-4 border-transparent border-t-black/90" />
             </motion.div>
           )}

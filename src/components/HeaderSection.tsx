@@ -2,8 +2,10 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useTranslations } from 'use-intl';
 
 export default function HeaderSection() {
+  const tHead = useTranslations('HeaderSection');
   return (
     <header className="relative h-screen overflow-x-hidden fade-edge fade-edge-bottom fade-edge-cyberpunk fade-edge-lg">
       <div className="absolute inset-0">
@@ -35,10 +37,10 @@ export default function HeaderSection() {
           className="max-w-2xl px-4"
         >
           <h2 className="text-2xl md:text-3xl font-mono text-white mb-4">
-            ONYX — це вайб
+            {tHead('title')}
           </h2>
           <p className="text-lg md:text-xl text-white/80 leading-relaxed">
-            Новий стиль атмосфери. Ми не стоїмо на місці — і ти теж.
+            {tHead('subTitle')}
           </p>
         </motion.div>
       </div>

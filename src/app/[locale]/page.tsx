@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import AgeVerificationModal from '../components/AgeVerificationModal';
-import HeaderSection from '../components/HeaderSection';
-import AdvantagesSection from '../components/AdvantagesSection';
-import CarouselSection from '../components/CarouselSection';
-import OrderSection from '../components/OrderSection';
-import ContactSection from '../components/ContactSection';
-import FooterSection from '../components/FooterSection';
+import AgeVerificationModal from '../../components/AgeVerificationModal';
+import HeaderSection from '../../components/HeaderSection';
+import AdvantagesSection from '../../components/AdvantagesSection';
+import CarouselSection from '../../components/CarouselSection';
+import OrderSection from '../../components/OrderSection';
+import ContactSection from '../../components/ContactSection';
+import FooterSection from '../../components/FooterSection';
 import { PersistentButton } from '@/components/PersistentButton';
 
 export default function HomePage() {

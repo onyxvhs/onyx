@@ -5,8 +5,10 @@ import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { PRODUCT_LIST } from '@/constants/ProductList.constant';
+import { useTranslations } from 'use-intl';
 
 export default function CarouselSection() {
+  const tCar = useTranslations('CarouselSection');
   const products = PRODUCT_LIST;
   const initialActiveIndex = products.findIndex((p) => p.active) || 0;
   const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
@@ -129,7 +131,7 @@ export default function CarouselSection() {
             onKeyDown={handleKeyDown}
             tabIndex={0}
             role="img"
-            aria-label={`${currentProduct.name} - головне зображення продукту`}
+            aria-label={`${tCar(`${currentProduct.name}`)} - ${tCar('mainImage')}`}
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -154,7 +156,7 @@ export default function CarouselSection() {
                             <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
                           </svg>
                         </div>
-                        <p className="text-sm">Зображення недоступне</p>
+                        <p className="text-sm">{tCar('noImage')}</p>
                       </div>
                     </div>
                   ) : (
@@ -180,7 +182,7 @@ export default function CarouselSection() {
                   onClick={prevSlide}
                   disabled={activeIndex === 0}
                   className="hidden xl:flex absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 items-center justify-center bg-black/70 backdrop-blur-sm rounded-full border border-white/20 hover:border-pink-400/50 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group z-10"
-                  aria-label="Попередній продукт"
+                  aria-label={tCar('ariaPrev')}
                 >
                   <ChevronLeft className="w-6 h-6 text-white group-hover:text-pink-400 transition-colors" />
                 </button>
@@ -189,7 +191,7 @@ export default function CarouselSection() {
                   onClick={nextSlide}
                   disabled={activeIndex === products.length - 1}
                   className="hidden xl:flex absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 items-center justify-center bg-black/70 backdrop-blur-sm rounded-full border border-white/20 hover:border-pink-400/50 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group z-10"
-                  aria-label="Наступний продукт"
+                  aria-label={tCar('ariaNext')}
                 >
                   <ChevronRight className="w-6 h-6 text-white group-hover:text-pink-400 transition-colors" />
                 </button>
@@ -206,7 +208,7 @@ export default function CarouselSection() {
                 whileTap={{ scale: 0.95 }}
               >
                 <ChevronLeft className="w-4 h-4" />
-                <span>Попередній</span>
+                <span>{tCar('prev')}</span>
               </motion.button>
 
               <motion.button
@@ -216,7 +218,7 @@ export default function CarouselSection() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span>Наступний</span>
+                <span>{tCar('next')}</span>
                 <ChevronRight className="w-4 h-4" />
               </motion.button>
             </div>
@@ -236,18 +238,18 @@ export default function CarouselSection() {
                 >
                   <h2
                     className="text-3xl md:text-4xl lg:text-5xl font-mono font-bold text-white mb-4 glitch"
-                    data-text={currentProduct.name.toUpperCase()}
+                    data-text={tCar(`${currentProduct.name}`).toUpperCase()}
                   >
-                    {currentProduct.name.toUpperCase()}
+                    {tCar(`${currentProduct.name}`).toUpperCase()}
                   </h2>
 
                   <p className="text-white/80 text-base md:text-lg leading-relaxed mb-4">
-                    {currentProduct.description}
+                    {tCar(`${currentProduct.description}`)}
                   </p>
 
                   <p className="text-white/60 text-sm md:text-base leading-relaxed">
-                    Смак: {currentProduct.description.toLowerCase()}. Ідеально
-                    підходить для тих, хто цінує якість та автентичність.
+                    {tCar('taste')}:{' '}
+                    {tCar(`${currentProduct.tasteDescription}`).toLowerCase()}
                   </p>
                 </motion.div>
               </AnimatePresence>
@@ -256,7 +258,7 @@ export default function CarouselSection() {
             {/* Thumbnails Carousel */}
             <div className="space-y-4">
               <h3 className="text-white/70 text-sm font-mono uppercase tracking-wider">
-                Оберіть смак
+                {tCar('chooseTaste')}
                 {/*({activeIndex + 1} з {products.length})*/}
               </h3>
 
@@ -281,7 +283,7 @@ export default function CarouselSection() {
                         }`}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        aria-label={`Вибрати ${product.name}`}
+                        aria-label={`${tCar('choose')} ${tCar(`${product.name}`)}`}
                         aria-pressed={isActive}
                       >
                         {hasError ? (
@@ -328,7 +330,7 @@ export default function CarouselSection() {
                         ? 'w-8 bg-pink-400'
                         : 'w-2 bg-white/30 hover:bg-white/50'
                     }`}
-                    aria-label={`Перейти до слайда ${index + 1}`}
+                    aria-label={`${tCar('moveToSlide')} ${index + 1}`}
                   />
                 ))}
               </div>
@@ -338,9 +340,7 @@ export default function CarouselSection() {
 
         {/* Mobile Swipe Hint */}
         <div className="lg:hidden text-center mt-8">
-          <p className="text-white/40 text-xs font-mono">
-            ← Проведіть пальцем для перегляду →
-          </p>
+          <p className="text-white/40 text-xs font-mono">{tCar('swipeHint')}</p>
         </div>
       </div>
     </section>
