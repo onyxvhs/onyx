@@ -42,6 +42,7 @@ export async function generateMetadata({
   return {
     title: tMeta('title'),
     description: tMeta('description'),
+
     icons: {
       // Favicons
       icon: [
@@ -73,6 +74,7 @@ export async function generateMetadata({
       type: 'website',
       locale: currentLocale,
       url: siteUrl,
+      siteName: 'ONYX',
       alternateLocale: ['en_US', 'uk_UA'],
       images: [
         {

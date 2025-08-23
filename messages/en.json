@@ -11,6 +11,8 @@
     "toContinue": "To continue, please confirm your age.",
     "yes": "Yes, I am",
     "no": "No, I am not",
+    "easterEgg": "Easter egg activated!",
+    "foundSecret": "You found the secret! But you still need to be 18+",
     "tastes": "Flavors",
     "exploreTastes": "Explore flavors"
   },
