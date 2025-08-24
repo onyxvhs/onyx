@@ -24,6 +24,9 @@
   "AdvantageSection": {
     "": "",
     "header": "Spicy Advantages",
+    "hoveTo": "HOVER TO DECRYPT",
+    "tapTo": "TAP TO UNLOCK DATA",
+    "data": "DATA DISCOVERED",
     "1": {
       "title": "Fiery character",
       "description": "ONYX easily takes three coals. Want heat? You’ll get it."

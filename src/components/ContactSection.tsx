@@ -1,12 +1,15 @@
 'use client';
 
 import type React from 'react';
-
 import { useState, useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
 import { useTranslations } from 'use-intl';
+import dynamic from 'next/dynamic';
+
+const SlotMachine = dynamic(() => import('./SlotMachine'), {
+  ssr: false,
+});
 
 export default function ContactSection() {
   const tCon = useTranslations('ContactSection');
@@ -204,10 +207,6 @@ export default function ContactSection() {
                   className="w-full px-4 py-3 bg-black/50 border border-pink-500/50 rounded-lg text-white placeholder-white/50 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 transition-all duration-300 resize-none"
                   placeholder={tCon(`${messagePlaceholder}`)}
                 />
-                {/*<div className="text-xs text-white/40 mt-1 font-mono flex items-center gap-1">*/}
-                {/*  <span className="w-1 h-1 bg-pink-400 rounded-full animate-pulse"></span>*/}
-                {/*  Натхнення: Miami Vice, Kung Fury, GTA Vice City*/}
-                {/*</div>*/}
               </div>
 
               <Button
@@ -246,99 +245,14 @@ export default function ContactSection() {
             </motion.div>
           </motion.div>
 
-          {/* Arcade machine */}
+          {/* Interactive Slot Machine */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="flex justify-center p-4 xl:p-0"
           >
-            <div className="relative">
-              <Image
-                src="/arcade-v2.png"
-                alt="Neon Arcade Machine"
-                width={500}
-                height={500}
-                className="w-full md:max-w-full rounded-xl neon-glow"
-              />
-
-              {/* Enhanced floating elements with retrowave references */}
-              <motion.div
-                animate={{ y: [-10, 10, -10], rotate: [0, 5, -5, 0] }}
-                transition={{
-                  duration: 3,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: 'easeInOut',
-                }}
-                className="absolute -top-4 -left-4 w-16 h-16"
-              >
-                <Image
-                  src="/coin-img.png"
-                  alt="Arcade Coin"
-                  width={50}
-                  height={50}
-                  className="w-full h-full drop-shadow-[0_0_8px_rgba(255,0,128,0.6)]"
-                />
-              </motion.div>
-
-              <motion.div
-                animate={{
-                  y: [10, -10, 10],
-                  rotate: [0, -10, 10, 0],
-                  scale: [1, 1.1, 0.9, 1],
-                }}
-                transition={{
-                  duration: 2.5,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: 'easeInOut',
-                }}
-                className="absolute -bottom-4 -right-4 w-12 h-12"
-              >
-                <Image
-                  src="/coin-img.png"
-                  alt="Arcade Coin"
-                  width={50}
-                  height={50}
-                  className="w-full h-full drop-shadow-[0_0_6px_rgba(0,255,255,0.6)]"
-                />
-              </motion.div>
-
-              {/* Additional retrowave elements */}
-              <motion.div
-                animate={{
-                  opacity: [0.3, 0.8, 0.3],
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Number.POSITIVE_INFINITY,
-                }}
-                className="absolute top-1/4 -right-2 w-8 h-8 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full blur-sm"
-              />
-
-              <motion.div
-                animate={{
-                  opacity: [0.2, 0.6, 0.2],
-                  x: [-5, 5, -5],
-                }}
-                transition={{
-                  duration: 3.5,
-                  repeat: Number.POSITIVE_INFINITY,
-                }}
-                className="absolute bottom-1/3 -left-3 w-6 h-6 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full blur-sm"
-              />
-            </div>
-
-            {/* Retrowave scan lines overlay */}
-            <motion.div
-              animate={{ y: ['-100%', '100%'] }}
-              transition={{
-                duration: 2,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: 'linear',
-              }}
-              className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/10 to-transparent h-2 pointer-events-none rounded-xl overflow-hidden"
-            />
+            <SlotMachine />
           </motion.div>
         </div>
 
