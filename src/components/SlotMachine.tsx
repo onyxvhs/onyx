@@ -240,6 +240,7 @@ export default function SlotMachine() {
       tCon('slot.loseMessages.2'),
       tCon('slot.loseMessages.3'),
       tCon('slot.loseMessages.4'),
+      tCon('slot.loseMessages.5'),
     ];
     if (credits >= COST_PER_SPIN)
       setMessage(loseMessages[Math.floor(Math.random() * loseMessages.length)]);
@@ -396,7 +397,7 @@ export default function SlotMachine() {
   };
 
   return (
-    <div className="relative bg-gradient-to-br from-purple-900/40 via-black/90 to-cyan-900/30 rounded-3xl p-4 sm:p-6 lg:p-8 border-2 border-pink-500/30 shadow-2xl backdrop-blur-sm max-w-xl w-full mx-auto overflow-hidden">
+    <div className="relative bg-gradient-to-br from-purple-900/40 via-black/90 to-cyan-900/30 rounded-3xl p-4 sm:p-6 lg:p-8 border-2 border-pink-500/30 shadow-2xl backdrop-blur-sm sm:max-w-xl w-full mx-auto overflow-hidden">
       {/* Enhanced neon glow effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-transparent to-cyan-500/10 rounded-3xl blur-xl -z-10"></div>
 
@@ -721,7 +722,7 @@ export default function SlotMachine() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="text-sm lg:text-base text-white/90 font-mono text-center bg-black/30 px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-white/10 backdrop-blur-sm w-full max-w-xs sm:max-w-sm lg:max-w-md break-words text-pretty"
+            className="text-sm lg:text-base text-white/90 font-mono text-center bg-black/30 px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-white/10 backdrop-blur-sm w-full max-w-xs sm:max-w-sm lg:max-w-md break-words text-pretty whitespace-pre-wrap"
           >
             {message}
           </motion.div>

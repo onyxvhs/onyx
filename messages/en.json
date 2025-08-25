@@ -179,8 +179,8 @@
         "credits": "CREDITS",
         "refillsDaily": "Refills daily",
         "lastWin": "LAST WIN",
-        "promocodeUnlocked": "🎁 PROMOCODE UNLOCKED!",
-        "promocodeEarned": "✅ PROMOCODE EARNED",
+        "promocodeUnlocked": "PROMOCODE UNLOCKED!",
+        "promocodeEarned": "PROMOCODE EARNED",
         "clickToView": "Click to view your code",
         "copy": "Copy",
         "copied": "Copied!",
@@ -199,10 +199,10 @@
 
       "runtime": {
         "spinningMsg": "🎲 Spinning the neon reels...",
-        "jackpot": "🎰 JACKPOT! Triple \"{symbol}\"! +{amount} credits!",
-        "megaJackpot": "🏆 MEGA JACKPOT! Triple \"{symbol}\"! +{amount} credits!",
-        "doubleWin": "✨ Nice! Double \"{symbol}\"! +{amount} credits!",
-        "bonusPrize": "🎁 BONUS PRIZE! Double \"{symbol}\" + PROMOCODE!"
+        "jackpot": "🎰 JACKPOT! Triple \"{symbol}\"!",
+        "megaJackpot": "🏆 MEGA JACKPOT! Triple \"{symbol}\"!",
+        "doubleWin": "✨ Nice! Double \"{symbol}\"!",
+        "bonusPrize": "🎁 BONUS PRIZE! Double \"{symbol}\""
       },
 
       "loseMessages": [
@@ -210,7 +210,8 @@
         "The neon gods smile elsewhere...",
         "Not this time, but keep trying!",
         "The synthwave flows different today...",
-        "Recalibrating luck algorithms..."
+        "Recalibrating luck algorithms...",
+        "90% of gamblers quit before they hit it big"
       ],
 
       "info": {

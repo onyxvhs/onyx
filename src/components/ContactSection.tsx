@@ -251,7 +251,7 @@ export default function ContactSection() {
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="flex justify-center p-4 xl:p-0 w-full"
+              className="flex justify-center w-full"
             >
               <SlotMachine />
             </motion.div>
