@@ -2,7 +2,7 @@
 
 import type React from 'react';
 import { useState, useCallback, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useTranslations } from 'use-intl';
 import dynamic from 'next/dynamic';
@@ -151,7 +151,7 @@ export default function ContactSection() {
 
   return (
     <section className="py-20 px-4 fade-edge fade-edge-bottom fade-edge-top fade-edge-sm fade-edge-cyberpunk">
-      <div className="max-w-6xl mx-auto">
+      <div className="mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -162,99 +162,101 @@ export default function ContactSection() {
           {tCon('connectUs')}
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-20 items-center">
-          {/* Contact form */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-white/80 text-sm font-medium mb-2">
-                  {tCon('tel')}
-                  <span className="text-pink-400/60 text-xs ml-2 font-mono">
-                    *{tCon('autoFormat')}
-                  </span>
-                </label>
-                <input
-                  type="tel"
-                  value={formData.tel}
-                  onChange={handlePhoneChange}
-                  className="w-full px-4 py-3 bg-black/50 border border-pink-500/50 rounded-lg text-white placeholder-white/50 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 transition-all duration-300 font-mono"
-                  placeholder="+380 97 123 45 67"
-                  maxLength={19} // Max length for formatted Ukrainian number
-                />
-                <div className="text-xs text-white/40 mt-1 font-mono">
-                  {tCon('example')}: 0971234567 → +380 97 123 45 67
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-white/80 text-sm font-medium mb-2">
-                  {tCon('message')}
-                  <span className="text-cyan-400/60 text-xs ml-2 font-mono">
-                    *retrowave mode ON
-                  </span>
-                </label>
-                <textarea
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  rows={6}
-                  className="w-full px-4 py-3 bg-black/50 border border-pink-500/50 rounded-lg text-white placeholder-white/50 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 transition-all duration-300 resize-none"
-                  placeholder={tCon(`${messagePlaceholder}`)}
-                />
-              </div>
-
-              <Button
-                type="submit"
-                disabled={
-                  status === 'sending' || !formData.tel || !formData.message
-                }
-                className="w-full bg-pink-500 hover:bg-pink-600 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3 rounded-lg neon-glow transition-all duration-300 font-mono tracking-wider"
-              >
-                {status === 'sending'
-                  ? `${tCon('sending')}`
-                  : `${tCon('send')}`}
-              </Button>
-            </form>
-            {status === 'success' && (
-              <div className="text-xs text-emerald-400/80 font-mono mt-2">
-                {tCon('success')}
-              </div>
-            )}
-            {status === 'error' && (
-              <div className="text-xs text-red-400/80 font-mono mt-2">
-                {tCon('fail')}
-              </div>
-            )}
-
-            {/* Easter egg - hidden Kung Fury reference */}
+        <AnimatePresence mode={'wait'}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-12 gap-x-10 px-4 xl:px-10">
+            {/* Contact form */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2 }}
-              className="text-center mt-4"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-6"
             >
-              <div className="text-xs text-cyan-400/30 font-mono">
-                "Hack the mainframe, smoke the ONYX" - Kung Fury
-              </div>
-            </motion.div>
-          </motion.div>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label className="block text-white/80 text-sm font-medium mb-2">
+                    {tCon('tel')}
+                    <span className="text-pink-400/60 text-xs ml-2 font-mono">
+                      *{tCon('autoFormat')}
+                    </span>
+                  </label>
+                  <input
+                    type="tel"
+                    value={formData.tel}
+                    onChange={handlePhoneChange}
+                    className="w-full px-4 py-3 bg-black/50 border border-pink-500/50 rounded-lg text-white placeholder-white/50 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 transition-all duration-300 font-mono"
+                    placeholder="+380 97 123 45 67"
+                    maxLength={19} // Max length for formatted Ukrainian number
+                  />
+                  <div className="text-xs text-white/40 mt-1 font-mono">
+                    {tCon('example')}: 0971234567 → +380 97 123 45 67
+                  </div>
+                </div>
 
-          {/* Interactive Slot Machine */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex justify-center p-4 xl:p-0"
-          >
-            <SlotMachine />
-          </motion.div>
-        </div>
+                <div>
+                  <label className="block text-white/80 text-sm font-medium mb-2">
+                    {tCon('message')}
+                    <span className="text-cyan-400/60 text-xs ml-2 font-mono">
+                      *retrowave mode ON
+                    </span>
+                  </label>
+                  <textarea
+                    value={formData.message}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
+                    rows={6}
+                    className="w-full px-4 py-3 bg-black/50 border border-pink-500/50 rounded-lg text-white placeholder-white/50 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 transition-all duration-300 resize-none"
+                    placeholder={tCon(`${messagePlaceholder}`)}
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  disabled={
+                    status === 'sending' || !formData.tel || !formData.message
+                  }
+                  className="w-full bg-pink-500 hover:bg-pink-600 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3 rounded-lg neon-glow transition-all duration-300 font-mono tracking-wider"
+                >
+                  {status === 'sending'
+                    ? `${tCon('sending')}`
+                    : `${tCon('send')}`}
+                </Button>
+              </form>
+              {status === 'success' && (
+                <div className="text-xs text-emerald-400/80 font-mono mt-2">
+                  {tCon('success')}
+                </div>
+              )}
+              {status === 'error' && (
+                <div className="text-xs text-red-400/80 font-mono mt-2">
+                  {tCon('fail')}
+                </div>
+              )}
+
+              {/* Easter egg - hidden Kung Fury reference */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 2 }}
+                className="text-center mt-4"
+              >
+                <div className="text-xs text-cyan-400/30 font-mono">
+                  "Hack the mainframe, smoke the ONYX" - Kung Fury
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Interactive Slot Machine */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex justify-center p-4 xl:p-0 w-full"
+            >
+              <SlotMachine />
+            </motion.div>
+          </div>
+        </AnimatePresence>
 
         {/* Hidden retrowave references footer */}
         <motion.div

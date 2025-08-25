@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'use-intl';
+import { openInNewTab } from '@/utils/openInNewTab';
 
 export default function OrderSection() {
   const tOrd = useTranslations('OrderSection');
@@ -149,6 +150,7 @@ export default function OrderSection() {
               whileTap={{ scale: 0.95 }}
               className="relative bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-300 text-black font-bold px-6 sm:px-20 py-4 text-3xl rounded-full transition-colors duration-400 transform shadow-2xl border-4 border-yellow-300 drop-shadow-2xl font-mono tracking-wider hover:tracking-widest cursor-pointer"
               aria-label="Перейти до каталогу товарів для замовлення"
+              onClick={() => openInNewTab('https://t.me/onyxua_bot')}
             >
               {tOrd('order')}
             </motion.button>

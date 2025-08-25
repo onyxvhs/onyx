@@ -24,7 +24,7 @@
   "AdvantageSection": {
     "": "",
     "header": "Spicy Advantages",
-    "hoveTo": "HOVER TO DECRYPT",
+    "hoverTo": "HOVER TO DECRYPT",
     "tapTo": "TAP TO UNLOCK DATA",
     "data": "DATA DISCOVERED",
     "1": {
@@ -159,7 +159,66 @@
     "sending": "Sending...",
     "send": "Send → Sync",
     "success": "Message sent.",
-    "fail": "Failed to send. Please try again later."
+    "fail": "Failed to send. Please try again later.",
+
+    "slot": {
+      "symbols": {
+        "lightning": "Lightning",
+        "crown": "Crown",
+        "gem": "Gem",
+        "star": "Star",
+        "heart": "Heart",
+        "coins": "Coins",
+        "trophy": "Trophy",
+        "gamepad": "Gamepad",
+        "sparkles": "Sparkles",
+        "music": "Music"
+      },
+
+      "ui": {
+        "credits": "CREDITS",
+        "refillsDaily": "Refills daily",
+        "lastWin": "LAST WIN",
+        "promocodeUnlocked": "🎁 PROMOCODE UNLOCKED!",
+        "promocodeEarned": "✅ PROMOCODE EARNED",
+        "clickToView": "Click to view your code",
+        "copy": "Copy",
+        "copied": "Copied!",
+        "saveCodeHint": "Save this code for exclusive discount!",
+        "ariaCopyPromocode": "Copy promocode",
+        "srCopied": "Promocode copied to clipboard",
+        "buttonSpinning": "SPINNING",
+        "buttonPull": "PULL"
+      },
+
+      "init": {
+        "pressToStart": "Press the button to start",
+        "welcome": "Welcome to Neon Slots! 15 free credits to start!",
+        "dailyRefillWelcome": "Daily credits refilled! Welcome back, cyber warrior!"
+      },
+
+      "runtime": {
+        "spinningMsg": "🎲 Spinning the neon reels...",
+        "jackpot": "🎰 JACKPOT! Triple \"{symbol}\"! +{amount} credits!",
+        "megaJackpot": "🏆 MEGA JACKPOT! Triple \"{symbol}\"! +{amount} credits!",
+        "doubleWin": "✨ Nice! Double \"{symbol}\"! +{amount} credits!",
+        "bonusPrize": "🎁 BONUS PRIZE! Double \"{symbol}\" + PROMOCODE!"
+      },
+
+      "loseMessages": [
+        "Try again, cyber warrior!",
+        "The neon gods smile elsewhere...",
+        "Not this time, but keep trying!",
+        "The synthwave flows different today...",
+        "Recalibrating luck algorithms..."
+      ],
+
+      "info": {
+        "costInfo": "Cost: {cost} credits per spin \nDaily refill: {refill} credits",
+        "nextRefill": "Next refill: {datetime}",
+        "keepPlaying": "Keep playing for a chance to win exclusive promocode!"
+      }
+    }
   },
   "FooterSection": {
     "": "",
