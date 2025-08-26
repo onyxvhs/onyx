@@ -11,8 +11,8 @@
     "toContinue": "To continue, please confirm your age.",
     "yes": "Yes, I am",
     "no": "No, I am not",
-    "easterEgg": "Easter egg activated!",
-    "foundSecret": "You found the secret! But you still need to be 18+",
+    "easterEgg": "Retrowave portal locked!",
+    "foundSecret": "This website is intended for adults only.",
     "tastes": "Flavors",
     "exploreTastes": "Explore flavors"
   },
@@ -23,13 +23,13 @@
   },
   "AdvantageSection": {
     "": "",
-    "header": "Spicy Advantages",
+    "header": "What makes ONYX special?",
     "hoverTo": "HOVER TO DECRYPT",
     "tapTo": "TAP TO UNLOCK DATA",
     "data": "DATA DISCOVERED",
     "1": {
-      "title": "Fiery character",
-      "description": "ONYX easily takes three coals. Want heat? You’ll get it."
+      "title": "Heat Under Control",
+      "description": "ONYX easily handles three coals. Maximum heat — stable results."
     },
     "2": {
       "title": "Says \"MANGO\"? You’ll get mango",
@@ -40,15 +40,15 @@
       "description": "Up to 2 hours of stable vibes. No need to repack."
     },
     "4": {
-      "title": "Not chemistry — Aesthetics",
-      "description": "Fruits taste like fruits. Berries like they’re from the forest. Naturalness always sounds better."
+      "title": "Analog Flavor",
+      "description": "Authentic taste. Only genuine fruits and berries."
     },
     "5": {
-      "title": "A lot — and that’s putting it mildly",
+      "title": "More vapor — more atmosphere",
       "description": "ONYX fills the space with smoke so thick it becomes part of it."
     },
     "6": {
-      "title": "A hookah that doesn’t need care",
+      "title": "A care-free hookah experience",
       "description": "ONYX is heat-resistant, stable, and requires no attention. Perfect for hookah lounges and HoReCa."
     }
   },
@@ -68,68 +68,68 @@
     "product": {
       "pinkman": {
         "name": "Pinkman",
-        "description": "Grapefruit, raspberry, and strawberry: a bright tangy-berry wave with a clean citrus finish, without cloying sweetness",
-        "tasteDescription": "tangy-berry citrus"
+        "description": "Sweet-berry citrus with a bright mix of grapefruit, raspberry, and strawberry.",
+        "tasteDescription": "sweet-berry citrus"
       },
       "supernova": {
         "name": "Supernova",
-        "description": "Intense ice effect without its own flavor; adds deep coolness to any mix and refreshes solo",
-        "tasteDescription": "maximum cold, flavorless"
+        "description": "Intense ice effect without its own flavor; adds deep coolness to any mix and refreshes solo.",
+        "tasteDescription": "maximum cold, no flavor"
       },
       "banana": {
         "name": "Banana",
-        "description": "Ripe banana with soft creaminess on the exhale and a rounded, sweet aftertaste",
+        "description": "Ripe banana with soft creaminess on the exhale and a rounded, sweet aftertaste.",
         "tasteDescription": "creamy banana, sweet"
       },
       "energy": {
         "name": "Energy",
-        "description": "Classic energy drink taste: citrus sweetness and a tonic spark, without bitterness",
-        "tasteDescription": "sweet citrus, energy boost"
+        "description": "Classic energy drink taste: citrus sweetness and a sparkling boost.",
+        "tasteDescription": "classic energy drink"
       },
       "kiwi": {
         "name": "Kiwi",
-        "description": "Juicy kiwi with a precise sweet-sour balance and fresh green notes; universal for mixes",
+        "description": "Juicy kiwi with a sweet-sour balance and fresh green notes; versatile for mixes.",
         "tasteDescription": "sweet-sour kiwi"
       },
       "lemongrass": {
         "name": "Lemongrass",
-        "description": "Herbal-citrus freshness with a light tea shade; very refreshing",
+        "description": "Light herbal aroma with a refreshing lemon accent.",
         "tasteDescription": "herbal-citrus"
       },
       "strawberry": {
         "name": "Strawberry",
-        "description": "Ripe strawberry with natural berry flavor and a clean profile — no artificial notes",
+        "description": "Ripe strawberry with natural berry notes and a clean profile — no artificial flavor.",
         "tasteDescription": "natural strawberry"
       },
       "lemon": {
         "name": "Lemon",
-        "description": "Bright lemon with expressive citrus and a clean, pleasantly tart aftertaste",
-        "tasteDescription": "pure lemon, tangy"
+        "description": "Bright lemon with expressive citrus and a clean, pleasant sour aftertaste.",
+        "tasteDescription": "natural lemon, tangy"
       },
       "peach": {
         "name": "Peach Tea",
-        "description": "Smooth black tea with ripe peach; no chill, long velvety aftertaste",
+        "description": "Soft black tea with ripe peach; no cooling, long velvety aftertaste.",
         "tasteDescription": "peach + black tea"
       },
       "pineapple": {
         "name": "Pineapple",
-        "description": "That very taste of pineapple rings: juicy, tropical-bright, with a light sourness.",
-        "tasteDescription": "tropical pineapple"
+        "description": "That very taste of pineapple rings: juicy, bright-tropical, with a light tang.",
+        "tasteDescription": "pineapple rings"
       },
       "mango": {
         "name": "Mango Yogurt",
-        "description": "Dessert mango with creamy-yogurt notes; rich and delicate profile",
-        "tasteDescription": "mango, creamy yogurt"
+        "description": "Dessert-like mango with creamy yogurt notes; rich and delicate profile.",
+        "tasteDescription": "sweet mango, creamy yogurt"
       },
       "grape": {
         "name": "Grape",
-        "description": "Ripe dark grapes: juicy start and light skin tartness, without candy-like artificiality",
-        "tasteDescription": "dark grapes, tart"
+        "description": "Deep, berry-sweet taste with a distinct grape aftertaste, free from candy-like artificial notes.",
+        "tasteDescription": "sweet and velvety grape"
       },
       "wild": {
         "name": "Wild Strawberry",
-        "description": "Fragrant wild strawberry with a delicate tartness and a natural ‘field’ character",
-        "tasteDescription": "wild strawberry, gentle tartness"
+        "description": "Delicate berry flavor with a light tang and the characteristic aroma of wild strawberries.",
+        "tasteDescription": "wild strawberry, gentle tang"
       }
     }
   },
@@ -142,14 +142,14 @@
   "ContactSection": {
     "": "",
     "messages": {
-      "1": "Hello, Miami! I want to order ONYX...",
-      "2": "Remember when we were analog? Need a hookah...",
-      "3": "Outrun the night with ONYX tobacco...",
-      "4": "Neon lights, late nights, and your tobacco...",
-      "5": "Drive through the city with a new flavor...",
-      "6": "Cyberdyne Systems approved! But first, a hookah...",
-      "7": "VHS quality, the future of taste...",
-      "8": "Ready for 2085? Let’s start with ONYX..."
+      "1": "Hi! Which flavor matches a synthwave playlist tonight?",
+      "2": "Looking for a taste to ride through the neon city...",
+      "3": "Which ONYX fits a retro night with cassettes?",
+      "4": "Any flavor for an arcade marathon?",
+      "5": "Do you have Energy? I need to glow like neon waves...",
+      "6": "Hey, need a flavor for cruising under neon lights",
+      "7": "Is there a flavor that matches VHS nostalgia?",
+      "8": "What should I order if I want clouds like a concert stage?"
     },
     "connectUs": "Connect with us",
     "tel": "Phone",

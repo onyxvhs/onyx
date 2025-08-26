@@ -134,7 +134,7 @@ export default function AgeVerificationModal({
                   transition={{ duration: 0.8 }}
                   className="absolute -top-2 -right-2 w-12 h-12 bg-white rounded-full flex items-center justify-center text-black font-bold text-lg"
                 >
-                  {showEasterEgg ? '🎉' : '18+'}
+                  18+
                 </motion.div>
               </div>
             </div>
@@ -179,40 +179,17 @@ export default function AgeVerificationModal({
                 {tModal('yes')}
               </motion.button>
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                animate={
-                  showEasterEgg
-                    ? {
-                        boxShadow: [
-                          '0 0 0 rgba(255, 0, 128, 0)',
-                          '0 0 20px rgba(255, 0, 128, 0.5)',
-                          '0 0 40px rgba(255, 0, 128, 0.3)',
-                          '0 0 20px rgba(255, 0, 128, 0.5)',
-                          '0 0 0 rgba(255, 0, 128, 0)',
-                        ],
-                        borderColor: [
-                          '#ec4899',
-                          '#ff0080',
-                          '#00ffff',
-                          '#ec4899',
-                        ],
-                      }
-                    : {}
-                }
-                transition={{
-                  duration: 0.4,
-                  boxShadow: {
-                    duration: 1.2,
-                    repeat: showEasterEgg ? Number.POSITIVE_INFINITY : 0,
-                  },
-                  borderColor: { duration: 0.8 },
-                }}
+                whileHover={!showEasterEgg ? { scale: 1.05 } : undefined}
+                whileTap={!showEasterEgg ? { scale: 0.95 } : undefined}
                 onClick={handleNoClick}
                 disabled={showEasterEgg}
-                className="flex-1 p-2 border-2 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white font-bold rounded-xl text-lg transition-colors duration-400 bg-transparent cursor-pointer"
+                className={`flex-1 p-2 border-2 font-bold rounded-xl text-lg transition-colors duration-400 bg-transparent ${
+                  showEasterEgg
+                    ? 'border-pink-500 text-pink-500 opacity-60 cursor-not-allowed'
+                    : 'border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white cursor-pointer'
+                }`}
               >
-                {showEasterEgg ? '🎊' : tModal('no')}
+                {showEasterEgg ? '🚫' : tModal('no')}
               </motion.button>
             </div>
 
@@ -227,10 +204,10 @@ export default function AgeVerificationModal({
                   className="text-center mt-4 p-3 bg-gradient-to-r from-pink-500/20 to-cyan-500/20 rounded-lg border border-pink-500/30"
                 >
                   <p className="text-cyan-300 text-sm font-mono">
-                    🎮 {tModal('easterEgg')} 🎮
+                    {tModal('easterEgg')}
                   </p>
                   <p className="text-white/70 text-xs mt-1">
-                    {tModal('foundSecret')} 😉
+                    {tModal('foundSecret')}
                   </p>
                 </motion.div>
               )}

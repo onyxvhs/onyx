@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { TV_Screen } from '@/components/TV_Screen';
 import { useTranslations } from 'use-intl';
+import { ADVANTAGES } from '@/constants/ADVATAGES.constant';
 
 export default function AdvantagesSection() {
   const tAdv = useTranslations('AdvantageSection');
@@ -53,45 +54,6 @@ export default function AdvantagesSection() {
     }
   };
 
-  const advantages = [
-    {
-      title: '1.title',
-      description: '1.description',
-      frontImage: '/card-1-front.png',
-      backImage: '/card-1-back.png',
-    },
-    {
-      title: '2.title',
-      description: '2.description',
-      frontImage: '/card-2-front.png',
-      backImage: '/card-2-back.png',
-    },
-    {
-      title: '3.title',
-      description: '3.description',
-      frontImage: '/card-3-front.png',
-      backImage: '/card-3-back.png',
-    },
-    {
-      title: '4.title',
-      description: '4.description',
-      frontImage: '/card-4-front.png',
-      backImage: '/card-4-back.png',
-    },
-    {
-      title: '5.title',
-      description: '5.description',
-      frontImage: '/card-5-front.png',
-      backImage: '/card-5-back.png',
-    },
-    {
-      title: '6.title',
-      description: '6.description',
-      frontImage: '/card-6-front.png',
-      backImage: '/card-6-back.png',
-    },
-  ];
-
   return (
     <section className="py-44 md:py-32 px-4 relative bg-gradient-to-b from-purple-950/30 via-black/50 to-purple-800/30 fade-edge fade-edge-bottom fade-edge-top fade-edge-sm fade-edge-cyberpunk">
       <div className="max-w-md sm:max-w-4xl mx-auto relative z-10">
@@ -123,7 +85,7 @@ export default function AdvantagesSection() {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 md:gap-y-20 justify-items-center p-4 md:p-0 md:my-10">
-          {advantages.map((advantage, index) => (
+          {ADVANTAGES.map((advantage, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
@@ -281,7 +243,7 @@ export default function AdvantagesSection() {
         >
           <div className="text-center mb-4">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-cyan-400 font-mono text-sm tracking-wide">
-              {tAdv('data')}: {discoveredCards.size}/{advantages.length}
+              {tAdv('data')}: {discoveredCards.size}/{ADVANTAGES.length}
             </span>
           </div>
 
@@ -294,7 +256,7 @@ export default function AdvantagesSection() {
               className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-400 rounded-full relative overflow-hidden"
               initial={{ width: 0 }}
               animate={{
-                width: `${(discoveredCards.size / advantages.length) * 100}%`,
+                width: `${(discoveredCards.size / ADVANTAGES.length) * 100}%`,
               }}
               transition={{ duration: 0.8, ease: 'easeOut' }}
             >
@@ -303,7 +265,7 @@ export default function AdvantagesSection() {
             </motion.div>
 
             {/* Completion pulse */}
-            {discoveredCards.size === advantages.length && (
+            {discoveredCards.size === ADVANTAGES.length && (
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-400 rounded-full"
                 animate={{
@@ -332,17 +294,17 @@ export default function AdvantagesSection() {
                   case 0:
                     return '🌐 ENTERING THE MATRIX...';
                   case 1:
-                    return '⚡ FIRST CONNECTION ESTABLISHED';
+                    return 'FIRST CONNECTION ESTABLISHED';
                   case 2:
-                    return '🔮 THE FORCE IS AWAKENING';
+                    return 'LOADING VHS TAPE...';
                   case 3:
-                    return '🤖 NEURAL LINK STABILIZING';
+                    return 'NEURAL LINK STABILIZING';
                   case 4:
-                    return '🚀 HYPERDRIVE CHARGING...';
+                    return 'TUNING SYNTHWAVE FREQUENCY';
                   case 5:
-                    return '👾 ONE MORE TO SAVE THE WORLD';
+                    return 'FINAL LEVEL APPROACHING';
                   case 6:
-                    return "🎯 MISSION COMPLETE - YOU'RE THE ONE!";
+                    return 'WELCOME, RIDER OF THE NEON WAVE!';
                   default:
                     return '🌐 ENTERING THE MATRIX...';
                 }
@@ -362,7 +324,7 @@ export default function AdvantagesSection() {
       </TV_Screen>
 
       <TV_Screen className="hidden lg:block bottom-0 xl:bottom-12 left-12 w-36 tv-screen -rotate-6">
-        <span className="uppercase tracking-widest">NEWS</span>
+        <span className="uppercase tracking-widest">Chill</span>
       </TV_Screen>
 
       <TV_Screen className="block bottom-5 xl:bottom-20 right-12 w-40 tv-screen rotate-12">

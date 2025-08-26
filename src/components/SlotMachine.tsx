@@ -1,21 +1,19 @@
 'use client';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import {
-  Coins,
-  Crown,
-  Gamepad2,
-  Gem,
-  Heart,
-  Music,
-  Sparkles,
-  Star,
-  Trophy,
-  Zap,
-  Copy,
-  Check,
-} from 'lucide-react';
+import { Gamepad2, Sparkles, Copy, Check } from 'lucide-react';
 import { useTranslations } from 'use-intl';
+import {
+  SYMBOL_KEYS,
+  SYMBOLS,
+} from '@/constants/SLOT_MACHINE_SYMBOLS.constant';
+import { LOSE_MESSAGE_KEYS } from '@/constants/SLOT_MACHINE_LOSE_MESSAGES.constant';
+
+// Static promocode - simpler approach
+const PROMOCODE = 'ONYX2077';
+const COST_PER_SPIN = 3;
+const DOUBLE_MULTIPLIER = 2;
+const TRIPLE_MULTIPLIER = 8;
 
 export default function SlotMachine() {
   const tCon = useTranslations('ContactSection');
@@ -31,89 +29,21 @@ export default function SlotMachine() {
   const [hydrated, setHydrated] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  // Static promocode - simpler approach
-  const PROMOCODE = 'ONYX2077';
-  const COST_PER_SPIN = 3;
-  const DOUBLE_MULTIPLIER = 2;
-  const TRIPLE_MULTIPLIER = 8;
+  const loseMessages = useMemo(
+    () => LOSE_MESSAGE_KEYS.map((k) => tCon(k)),
+    [tCon]
+  );
 
-  // Retrowave-themed symbols with adjusted values for better balance
-  const symbols = [
-    {
-      icon: Zap,
-      color: 'text-yellow-400',
-      name: 'Lightning',
-      value: 8,
-      weight: 15,
-    },
-    {
-      icon: Crown,
-      color: 'text-purple-400',
-      name: 'Crown',
-      value: 50,
-      weight: 4,
-    },
-    { icon: Gem, color: 'text-cyan-400', name: 'Gem', value: 12, weight: 12 },
-    { icon: Star, color: 'text-pink-400', name: 'Star', value: 15, weight: 10 },
-    { icon: Heart, color: 'text-red-400', name: 'Heart', value: 5, weight: 20 },
-    {
-      icon: Coins,
-      color: 'text-yellow-300',
-      name: 'Coins',
-      value: 25,
-      weight: 6,
-    },
-    {
-      icon: Trophy,
-      color: 'text-orange-400',
-      name: 'Trophy',
-      value: 100,
-      weight: 3,
-    },
-    {
-      icon: Gamepad2,
-      color: 'text-green-400',
-      name: 'Gamepad',
-      value: 6,
-      weight: 18,
-    },
-    {
-      icon: Sparkles,
-      color: 'text-blue-400',
-      name: 'Sparkles',
-      value: 10,
-      weight: 13,
-    },
-    {
-      icon: Music,
-      color: 'text-indigo-400',
-      name: 'Music',
-      value: 18,
-      weight: 5,
-    },
-  ];
-  const symbolKeys = [
-    'lightning',
-    'crown',
-    'gem',
-    'star',
-    'heart',
-    'coins',
-    'trophy',
-    'gamepad',
-    'sparkles',
-    'music',
-  ] as const;
   const getSymbolName = (idx: number) =>
-    tCon(`slot.symbols.${symbolKeys[idx]}`);
+    tCon(`slot.symbols.${SYMBOL_KEYS[idx]}`);
 
   // Weighted random symbol selection
   const getWeightedRandomSymbol = () => {
-    const totalWeight = symbols.reduce((sum, symbol) => sum + symbol.weight, 0);
+    const totalWeight = SYMBOLS.reduce((sum, symbol) => sum + symbol.weight, 0);
     let random = Math.random() * totalWeight;
 
-    for (let i = 0; i < symbols.length; i++) {
-      random -= symbols[i].weight;
+    for (let i = 0; i < SYMBOLS.length; i++) {
+      random -= SYMBOLS[i].weight;
       if (random <= 0) return i;
     }
     return 0;
@@ -153,7 +83,7 @@ export default function SlotMachine() {
 
     // Three of a kind (jackpot)
     if (a === b && b === c) {
-      const baseWin = symbols[a].value * TRIPLE_MULTIPLIER;
+      const baseWin = SYMBOLS[a].value * TRIPLE_MULTIPLIER;
       updateCredits((prev) => prev + baseWin);
       setLastWin(baseWin);
       setShowLastWin(true);
@@ -200,7 +130,7 @@ export default function SlotMachine() {
     // Two of a kind
     if (a === b || b === c || a === c) {
       const matchSymbol = a === b ? a : b === c ? b : c;
-      const baseWin = symbols[matchSymbol].value * DOUBLE_MULTIPLIER;
+      const baseWin = SYMBOLS[matchSymbol].value * DOUBLE_MULTIPLIER;
       updateCredits((prev) => prev + baseWin);
       setLastWin(baseWin);
       setShowLastWin(true);
@@ -234,14 +164,7 @@ export default function SlotMachine() {
     // No win
     setLastWin(0);
     setShowLastWin(false);
-    const loseMessages = [
-      tCon('slot.loseMessages.0'),
-      tCon('slot.loseMessages.1'),
-      tCon('slot.loseMessages.2'),
-      tCon('slot.loseMessages.3'),
-      tCon('slot.loseMessages.4'),
-      tCon('slot.loseMessages.5'),
-    ];
+
     if (credits >= COST_PER_SPIN)
       setMessage(loseMessages[Math.floor(Math.random() * loseMessages.length)]);
   };
@@ -419,7 +342,7 @@ export default function SlotMachine() {
 
       {/* Credits and Status Display - Fixed Height Container */}
       <div className="mb-4 sm:mb-6 min-h-[60px] sm:min-h-[70px] lg:min-h-[80px]">
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 h-full">
+        <div className="flex flex-row justify-center items-center gap-3 sm:gap-4 h-full">
           {/* Credits Display - Always visible */}
           <div className="bg-black/60 px-3 sm:px-4 py-2 sm:py-3 rounded-xl border border-cyan-400/50 backdrop-blur-sm min-w-[100px] sm:min-w-[120px]">
             <div className="text-xs text-cyan-400 font-mono text-center">
@@ -506,7 +429,7 @@ export default function SlotMachine() {
                     type="button"
                     onClick={handleCopyPromocode}
                     aria-label={tCon('slot.ui.copy')}
-                    className="absolute -right-2 -top-2 sm:-right-3 sm:-top-3 rounded-full border border-white/20 bg-black/60 backdrop-blur px-2 py-2 shadow-md"
+                    className="absolute -right-5 -top-2 sm:-right-3 sm:-top-3 rounded-full border border-white/20 bg-black/60 backdrop-blur px-2 py-2 shadow-md"
                     initial={{ opacity: 0, scale: 0.8, y: -4 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.8, y: -4 }}
@@ -599,7 +522,7 @@ export default function SlotMachine() {
         <div className="bg-black/80 p-3 sm:p-4 lg:p-6 rounded-2xl border-2 border-pink-500/40 shadow-inner backdrop-blur-sm">
           <div className="flex gap-2 sm:gap-3 lg:gap-4">
             {reels.map((symbolIndex, reelIndex) => {
-              const Symbol = symbols[symbolIndex].icon;
+              const Symbol = SYMBOLS[symbolIndex].icon;
               return (
                 <div
                   key={reelIndex}
@@ -627,7 +550,7 @@ export default function SlotMachine() {
                   >
                     <Symbol
                       size={24}
-                      className={`${symbols[symbolIndex].color} drop-shadow-[0_0_8px_currentColor] z-10`}
+                      className={`${SYMBOLS[symbolIndex].color} drop-shadow-[0_0_8px_currentColor] z-10`}
                     />
                   </motion.div>
 

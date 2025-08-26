@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
-import { PRODUCT_LIST } from '@/constants/ProductList.constant';
+import { PRODUCT_LIST } from '@/constants/PRODUCT_LIST.constant';
 import { useTranslations } from 'use-intl';
 
 export default function CarouselSection() {

@@ -37,6 +37,7 @@ export async function generateMetadata({
     notFound();
   }
   const currentLocale = defineCurrentLocale(locale as Locale);
+  const hreflang = locale === 'en' ? 'en' : 'uk';
   const siteUrl = 'https://www.onyx-wave.com';
 
   return {
@@ -78,7 +79,7 @@ export async function generateMetadata({
       alternateLocale: ['en_US', 'uk_UA'],
       images: [
         {
-          url: 'https://onyx-alter.vercel.app/og-image.png',
+          url: '/og-image.png',
           alt: 'ONYX',
           width: 1200,
           height: 630,
@@ -93,7 +94,7 @@ export async function generateMetadata({
       site: siteUrl,
       images: [
         {
-          url: 'https://onyx-alter.vercel.app/og-image.png',
+          url: '/og-image.png',
           alt: 'ONYX',
           width: 1200,
           height: 630,
