@@ -163,7 +163,7 @@ export default function CarouselSection() {
                     <div className="relative w-full h-full">
                       <Image
                         src={currentProduct.largeImage}
-                        alt={`${currentProduct.name} - тютюн для кальяну ONYX`}
+                        alt={`${currentProduct.name} - ${tCar('blendMix')}`}
                         fill
                         className="object-contain rounded-2xl"
                         sizes="(min-width: 1024px) 50vw, 90vw"
@@ -297,7 +297,7 @@ export default function CarouselSection() {
                         ) : (
                           <Image
                             src={product.carouselImage}
-                            alt={`${product.name} міні зображення`}
+                            alt={`${product.name} - Onyx`}
                             fill
                             className="object-cover"
                             sizes="80px"

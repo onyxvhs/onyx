@@ -10,7 +10,7 @@ export default function FooterSection() {
   const tFot = useTranslations('FooterSection');
   const pathname = useI18nPathname();
   return (
-    <footer className="py-8 px-4 border-t border-white/10">
+    <footer className="py-8 px-4 border-t border-white/10" data-nosnippet>
       <div className="grid grid-cols-1 md:grid-cols-9 gap-2 md:gap-8 items-center justify-center">
         {/* Column 1: ONYX Logo */}
         <motion.div

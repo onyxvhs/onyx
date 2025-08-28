@@ -7,7 +7,6 @@ import { routing } from '@/i18n/routing';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { Locale } from '@/i18n/navigation';
 import { notFound } from 'next/navigation';
-import { defineCurrentLocale } from '@/utils/defineCurrentLocale';
 import { NextIntlClientProvider } from 'next-intl';
 
 const inter = Inter({
@@ -36,8 +35,7 @@ export async function generateMetadata({
   if (!routing.locales.includes(locale as Locale)) {
     notFound();
   }
-  const currentLocale = defineCurrentLocale(locale as Locale);
-  const hreflang = locale === 'en' ? 'en' : 'uk';
+  const hreflang = locale === 'ua' ? 'uk' : 'en';
   const siteUrl = 'https://www.onyx-wave.com';
 
   return {
@@ -47,22 +45,22 @@ export async function generateMetadata({
     icons: {
       // Favicons
       icon: [
-        { url: '/icon1.png', sizes: '96x96', type: 'image/png' },
-        { url: '/favicon.ico', sizes: '48x48', type: 'image/x-icon' },
-        { url: '/icon0.svg', sizes: '244x88', type: 'image/svg+xml' },
+        { url: '/icon.png', sizes: '96x96', type: 'image/png' },
+        { url: '/favicon.ico', type: 'image/x-icon' },
+        { url: '/icon-svg.svg', sizes: '244x88', type: 'image/svg+xml' },
       ],
       // Apple touch icon (iOS)
       apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
       // Other icons (Android, Manifest, etc.)
       other: [
         {
-          rel: 'android-chrome',
+          rel: 'icon',
           url: '/web-app-manifest-192x192.png',
           sizes: '192x192',
           type: 'image/png',
         },
         {
-          rel: 'android-chrome',
+          rel: 'icon',
           url: '/web-app-manifest-512x512.png',
           sizes: '512x512',
           type: 'image/png',
@@ -73,7 +71,7 @@ export async function generateMetadata({
       title: tMeta('title'),
       description: tMeta('description'),
       type: 'website',
-      locale: currentLocale,
+      locale: hreflang,
       url: siteUrl,
       siteName: 'ONYX',
       alternateLocale: ['en_US', 'uk_UA'],
@@ -108,7 +106,9 @@ export async function generateMetadata({
       canonical: siteUrl,
       languages: {
         'en-US': `${siteUrl}/en`,
+        en: `${siteUrl}/en`,
         'uk-UA': `${siteUrl}/ua`,
+        uk: `${siteUrl}/ua`,
         'x-default': `${siteUrl}/ua`,
       },
     },
@@ -129,15 +129,49 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
-  const currentLocale = defineCurrentLocale(locale as Locale);
+  const hreflang = locale === 'ua' ? 'uk' : 'en';
+  const basePath = locale === 'en' ? 'en' : 'ua';
+
   const messages = await getMessages();
 
   if (!routing.locales.includes(locale as Locale)) {
     notFound();
   }
 
+  // Create the JSON-LD objects with proper string interpolation
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': 'https://www.onyx-wave.com/#organization',
+    name: 'ONYX',
+    url: 'https://www.onyx-wave.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://www.onyx-wave.com/icon-svg.svg',
+    },
+    sameAs: [
+      'https://tiktok.com/@onyx_ua',
+      'https://instagram.com/onyx_ua',
+      'https://t.me/onyxua_bot',
+    ],
+  };
+
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': 'https://www.onyx-wave.com/#website',
+    name: 'ONYX',
+    url: 'https://www.onyx-wave.com',
+    publisher: { '@id': 'https://www.onyx-wave.com/#organization' },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `https://www.onyx-wave.com/${basePath}?search={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  };
+
   return (
-    <html lang={currentLocale}>
+    <html lang={hreflang}>
       <head>
         <meta
           name="theme-color"
@@ -153,6 +187,18 @@ export default async function RootLayout({
         <meta
           name="apple-mobile-web-app-status-bar-style"
           content="black-translucent"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema),
+          }}
         />
       </head>
       <body

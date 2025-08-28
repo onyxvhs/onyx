@@ -3,3 +3,5 @@ Allow: /
 Disallow: /private/
 
 Host: https://www.onyx-wave.com
+
+Sitemap: https://www.onyx-wave.com/sitemap.xml
