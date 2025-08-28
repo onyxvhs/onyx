@@ -25,6 +25,10 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+function safeJsonLd(data: any): string {
+  return JSON.stringify(data).replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -129,6 +133,7 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
+  const tMeta = await getTranslations({ locale, namespace: 'Meta' });
   const hreflang = locale === 'ua' ? 'uk' : 'en';
   const basePath = locale === 'en' ? 'en' : 'ua';
 
@@ -138,22 +143,36 @@ export default async function RootLayout({
     notFound();
   }
 
-  // Create the JSON-LD objects with proper string interpolation
+  // Enhanced JSON-LD schemas with more specific data
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     '@id': 'https://www.onyx-wave.com/#organization',
     name: 'ONYX',
     url: 'https://www.onyx-wave.com',
+    description: tMeta('description'),
     logo: {
       '@type': 'ImageObject',
       url: 'https://www.onyx-wave.com/icon-svg.svg',
+      width: 244,
+      height: 88,
+    },
+    image: {
+      '@type': 'ImageObject',
+      url: 'https://www.onyx-wave.com/og-image.png',
+      width: 1200,
+      height: 630,
     },
     sameAs: [
       'https://tiktok.com/@onyx_ua',
       'https://instagram.com/onyx_ua',
+      'https://t.me/get_onyx',
       'https://t.me/onyxua_bot',
     ],
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'UA',
+    },
   };
 
   const websiteSchema = {
@@ -162,12 +181,40 @@ export default async function RootLayout({
     '@id': 'https://www.onyx-wave.com/#website',
     name: 'ONYX',
     url: 'https://www.onyx-wave.com',
+    description: tMeta('description'),
     publisher: { '@id': 'https://www.onyx-wave.com/#organization' },
+    inLanguage: [hreflang === 'uk' ? 'uk-UA' : 'en-US'],
     potentialAction: {
       '@type': 'SearchAction',
-      target: `https://www.onyx-wave.com/${basePath}?search={search_term_string}`,
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `https://www.onyx-wave.com/${basePath}?search={search_term_string}`,
+      },
       'query-input': 'required name=search_term_string',
     },
+  };
+
+  // Add a LocalBusiness schema if applicable (this might show in Rich Results)
+  const localBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': 'https://www.onyx-wave.com/#localbusiness',
+    name: 'ONYX',
+    url: 'https://www.onyx-wave.com',
+    description: tMeta('description'),
+    logo: 'https://www.onyx-wave.com/icon-svg.svg',
+    image: 'https://www.onyx-wave.com/og-image.png',
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'UA',
+      addressRegion: 'Kiev',
+    },
+    sameAs: [
+      'https://tiktok.com/@onyx_ua',
+      'https://instagram.com/onyx_ua',
+      'https://t.me/get_onyx',
+      'https://t.me/onyxua_bot',
+    ],
   };
 
   return (
@@ -191,13 +238,19 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
+            __html: safeJsonLd(organizationSchema),
           }}
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteSchema),
+            __html: safeJsonLd(websiteSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: safeJsonLd(localBusinessSchema),
           }}
         />
       </head>
