@@ -209,6 +209,7 @@ export default async function RootLayout({
       addressCountry: 'UA',
       addressRegion: 'Kiev',
     },
+    telephone: '+380777000775',
     sameAs: [
       'https://tiktok.com/@onyx_ua',
       'https://instagram.com/onyx_ua',
