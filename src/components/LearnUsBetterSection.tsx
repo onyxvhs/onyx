@@ -100,7 +100,7 @@ export default function LearnUsBetterSection() {
     <section
       id="about"
       title={tLearn('header')}
-      className="py-16 md:py-32 px-4 relative bg-gradient-to-b from-black via-purple-950/10 to-purple-950/30 overflow-hidden fade-edge fade-edge-bottom fade-edge-sm fade-edge-cyberpunk"
+      className="py-16 md:py-32 px-4 relative bg-gradient-to-b from-black/85 via-purple-950/10 to-purple-950/30 overflow-hidden fade-edge fade-edge-bottom fade-edge-sm fade-edge-cyberpunk"
     >
       {/* Animated Circuit Background - Simplified on mobile */}
       <div className="absolute inset-0 opacity-10">
@@ -175,7 +175,7 @@ export default function LearnUsBetterSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="relative order-2 lg:order-1 flex flex-col justify-center min-h-[500px]"
+            className="relative flex flex-col justify-center min-h-[500px]"
           >
             {/* Cyberpunk Corner Indicators */}
             <div className="absolute -top-3 -left-3 z-30 pointer-events-none">

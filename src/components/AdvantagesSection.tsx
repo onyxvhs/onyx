@@ -153,7 +153,7 @@ export default function AdvantagesSection() {
                         <div
                           className={`w-3 h-3 rounded-full transition-all duration-300 ${
                             discoveredCards.has(index)
-                              ? 'bg-green-400 shadow-lg shadow-green-400/50 animate-pulse'
+                              ? 'bg-cyan-400 shadow-lg shadow-pink-500/50 animate-pulse'
                               : 'bg-gray-500 shadow-sm shadow-gray-500/50'
                           }`}
                         ></div>
