@@ -150,13 +150,17 @@ export default function ContactSection() {
   }, [status]);
 
   return (
-    <section className="py-20 px-4 fade-edge fade-edge-bottom fade-edge-top fade-edge-sm fade-edge-cyberpunk">
+    <section
+      id="contactUs"
+      title={tCon('connectUs')}
+      className="py-20 px-4 fade-edge fade-edge-bottom fade-edge-top fade-edge-sm fade-edge-cyberpunk"
+    >
       <div className="mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl font-mono font-bold text-center text-white mb-16 glitch"
+          className="text-5xl font-mono font-bold text-center text-white mb-16 glitch"
           data-text={tCon('connectUs')}
         >
           {tCon('connectUs')}

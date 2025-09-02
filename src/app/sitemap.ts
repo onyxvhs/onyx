@@ -3,7 +3,7 @@ import type { MetadataRoute } from 'next';
 const siteUrl = 'https://www.onyx-wave.com';
 
 const pathsByLocale: Record<string, string> = {
-  uk: '/ua', // Ukrainian content path, hreflang=uk
+  uk: '/ua',
   en: '/en',
 };
 

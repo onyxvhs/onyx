@@ -236,6 +236,23 @@ export default async function RootLayout({
           name="apple-mobile-web-app-status-bar-style"
           content="black-translucent"
         />
+        <meta name="description" content={tMeta('description')} />
+        <link rel="canonical" href="https://www.onyx-wave.com" />
+        <link
+          rel="alternate"
+          href="https://www.onyx-wave.com/ua"
+          hrefLang="uk-UA"
+        />
+        <link
+          rel="alternate"
+          href="https://www.onyx-wave.com/en"
+          hrefLang="en-US"
+        />
+        <link
+          rel="alternate"
+          href="https://www.onyx-wave.com/ua"
+          hrefLang="x-default"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -254,6 +271,7 @@ export default async function RootLayout({
             __html: safeJsonLd(localBusinessSchema),
           }}
         />
+        <title>{tMeta('title')}</title>
       </head>
       <body
         className={`${inter.variable} ${orbitron.variable} font-sans antialiased bg-black text-white overflow-x-clip scroll-smooth`}

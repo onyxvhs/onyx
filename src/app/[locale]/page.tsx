@@ -7,6 +7,11 @@ import FooterSection from '../../components/FooterSection';
 import { PersistentButton } from '@/components/PersistentButton';
 import dynamic from 'next/dynamic';
 
+const LearnUsBetterSection = dynamic(
+  () => import('../../components/LearnUsBetterSection'),
+  { ssr: false }
+);
+
 const AdvantagesSection = dynamic(
   () => import('../../components/AdvantagesSection'),
   { ssr: false }
@@ -45,6 +50,7 @@ export default function HomePage() {
         <div className="relative z-10 w-full">
           <HeaderSection />
           <main>
+            <LearnUsBetterSection />
             <AdvantagesSection />
             <CarouselSection />
             <OrderSection />

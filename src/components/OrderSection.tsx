@@ -42,7 +42,11 @@ export default function OrderSection() {
   }, [mounted, particleCount]);
 
   return (
-    <section className="py-32 px-4 relative bg-gradient-to-b from-purple-900/20 via-black/80 to-purple-900/20 overflow-hidden fade-edge fade-edge-bottom fade-edge-top fade-edge-lg fade-edge-cyberpunk">
+    <section
+      id="order"
+      title={tOrd('order')}
+      className="py-32 px-4 relative bg-gradient-to-b from-purple-900/20 via-black/80 to-purple-900/20 overflow-hidden"
+    >
       {/* Decorative background layers */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden>
         {/* Neon grid background */}

@@ -42,13 +42,13 @@ export default function FooterSection() {
             href="tel:+380777000775"
             className="text-white/70 text-sm hover:text-pink-400 transition-colors duration-300"
           >
-            +38 (077) 700 07 75
+            +38 (077) 700 07 75{''}
           </a>
           <a
             href="mailto:info@onyx-wave.com"
             className="text-white/70 text-sm hover:text-pink-400 transition-colors duration-300"
           >
-            info@onyx-wave.com
+            info@onyx-wave.com{''}
           </a>
           <a
             href="https://t.me/get_onyx"
@@ -56,7 +56,7 @@ export default function FooterSection() {
             rel="noopener noreferrer"
             className="text-white/70 text-sm hover:text-pink-400 transition-colors duration-300"
           >
-            @get_onyx
+            @get_onyx{''}
           </a>
         </motion.div>
 
@@ -75,7 +75,7 @@ export default function FooterSection() {
             rel="noopener noreferrer"
             className="text-white/70 text-sm hover:text-pink-400 transition-colors duration-300"
           >
-            @onyxua_bot
+            @onyxua_bot{''}
           </a>
           <h4 className="text-lg font-semibold text-white">
             {tFot('socials')}{' '}

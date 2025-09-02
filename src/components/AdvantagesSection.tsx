@@ -55,13 +55,17 @@ export default function AdvantagesSection() {
   };
 
   return (
-    <section className="py-44 md:py-32 px-4 relative bg-gradient-to-b from-purple-950/30 via-black/50 to-purple-800/30 fade-edge fade-edge-bottom fade-edge-top fade-edge-sm fade-edge-cyberpunk">
+    <section
+      id="advantages"
+      title={tAdv('header')}
+      className="py-44 md:py-32 px-4 relative bg-gradient-to-b from-purple-950/30 via-black/50 to-purple-800/30 fade-edge fade-edge-bottom fade-edge-sm fade-edge-cyberpunk"
+    >
       <div className="max-w-md sm:max-w-4xl mx-auto relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl font-mono font-bold text-center text-white mb-8 glitch"
+          className="text-5xl font-mono font-bold text-center text-white mb-8 glitch"
           data-text={tAdv('header')}
         >
           {tAdv('header')}
@@ -156,7 +160,7 @@ export default function AdvantagesSection() {
                       </div>
 
                       {/* Scanning Line Effect */}
-                      <div className="absolute inset-0 rounded-xl overflow-hidden pointer-events-none z-20 [animation:scan_1.5s_linear_infinite] bg-gradient-to-r from-transparent via-cyan-400/5 to-transparent" />
+                      {/*<div className="absolute inset-0 rounded-xl overflow-hidden pointer-events-none z-20 [animation:scan_1.5s_linear_infinite] bg-gradient-to-r from-transparent via-cyan-400/5 to-transparent" />*/}
 
                       <Image
                         src={advantage.backImage || '/placeholder.svg'}
@@ -319,7 +323,7 @@ export default function AdvantagesSection() {
         <span className="uppercase tracking-widest">ONYX FM</span>
       </TV_Screen>
 
-      <TV_Screen className="hidden lg:block top-16 right-32 w-44 tv-screen -rotate-12">
+      <TV_Screen className="hidden lg:block top-16 md:right-4 xl:right-32 w-44 tv-screen -rotate-12">
         <span className="uppercase tracking-widest">LIVE 24/7</span>
       </TV_Screen>
 

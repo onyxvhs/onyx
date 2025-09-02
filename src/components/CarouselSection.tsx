@@ -6,10 +6,11 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { PRODUCT_LIST } from '@/constants/PRODUCT_LIST.constant';
 import { useTranslations } from 'use-intl';
+import { Product } from '@/types/Product.type';
 
 export default function CarouselSection() {
   const tCar = useTranslations('CarouselSection');
-  const products = PRODUCT_LIST;
+  const products: Product[] = PRODUCT_LIST;
   const initialActiveIndex = products.findIndex((p) => p.active) || 0;
   const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
   const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
@@ -119,7 +120,8 @@ export default function CarouselSection() {
   return (
     <section
       id="product"
-      className="py-12 md:py-20 px-4 relative bg-gradient-to-b from-purple-900/30 via-black/50 to-purple-800/20 fade-edge fade-edge-bottom fade-edge-top fade-edge-sm fade-edge-cyberpunk"
+      title={tCar('sectionTitle')}
+      className="py-12 md:py-20 px-4 relative bg-gradient-to-b from-purple-800/30 via-black/50 to-purple-800/20 fade-edge fade-edge-bottom fade-edge-sm fade-edge-cyberpunk"
     >
       {/* Main Content */}
       <div className="max-w-7xl mx-auto">
@@ -243,7 +245,7 @@ export default function CarouselSection() {
                     {tCar(`${currentProduct.name}`).toUpperCase()}
                   </h2>
 
-                  <p className="text-white/80 text-base md:text-lg leading-relaxed mb-4">
+                  <p className="text-white/80 text-base md:text-lg leading-relaxed mb-4 text-pretty">
                     {tCar(`${currentProduct.description}`)}
                   </p>
 

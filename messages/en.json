@@ -21,6 +21,26 @@
     "title": "ONYX — it’s a vibe",
     "subTitle": "Neon, style, atmosphere. We’re not like the others — and neither are you."
   },
+  "LearnUsBetterSection": {
+    "": "",
+    "header": "WHO WE ARE",
+    "subheader": "Born in the neon-soaked dreams of tomorrow",
+    "description": "We create blends based on hibiscus tea leaves that provide thick vapor, rich flavor and freedom from nicotine. This is a modern alternative to hookah tobacco that allows you to enjoy the process without compromise. Our flavorists select the most popular hookah flavors, focusing on trends and smokers' preferences. The ONYX line includes both the most popular mono flavors - lemon, grape, pineapple, and top mixes that are most often sought after by hookah lovers, such as the legendary Pinkman. Thanks to this, each hookah blend without tobacco and nicotine from ONYX combines current flavors and stable quality. ONYX is not just a substitute for hookah tobacco. It is style, a new culture and freedom from nicotine.",
+    "missionTitle": "OUR MISSION",
+    "missionDesc": "Redefining relaxation for the digital age. We're not just creating products — we're crafting experiences that transport you to a cyberpunk paradise.",
+    "visionTitle": "THE VISION",
+    "visionDesc": "A world where tradition meets innovation. Where ancient rituals get a neon upgrade. Where every session is a journey through time and space.",
+    "innovationTitle": "INNOVATION CORE",
+    "innovationDesc": "We don't follow trends — we create them. Our lab is where science meets art, where chemistry becomes poetry, where the future is born.",
+    "communityTitle": "CYBER COMMUNITY",
+    "communityDesc": "Join thousands of digital nomads, night riders, and neon dreamers who've made ONYX their gateway to the retrowave dimension.",
+    "dataProcessing": "PROCESSING BRAND DATA...",
+    "systemInitialized": "ONYX PROTOCOL ACTIVE",
+    "brandMatrix": "BRAND MATRIX",
+    "established": "EST. 2025",
+    "location": "CYBER LABS",
+    "philosophy": "FUTURE • TRADITION • INNOVATION"
+  },
   "AdvantageSection": {
     "": "",
     "header": "What makes ONYX special?",
@@ -54,6 +74,7 @@
   },
   "CarouselSection": {
     "": "",
+    "sectionTitle": "ONYX Products",
     "mainImage": "main product image",
     "noImage": "Image unavailable",
     "ariaPrev": "Previous product",
