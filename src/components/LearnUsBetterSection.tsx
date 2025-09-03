@@ -99,7 +99,6 @@ export default function LearnUsBetterSection() {
   return (
     <section
       id="about"
-      title={tLearn('header')}
       className="py-16 md:py-32 px-4 relative bg-gradient-to-b from-black/85 via-purple-950/10 to-purple-950/30 overflow-hidden fade-edge fade-edge-bottom fade-edge-sm fade-edge-cyberpunk"
     >
       {/* Animated Circuit Background - Simplified on mobile */}

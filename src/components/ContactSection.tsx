@@ -152,7 +152,6 @@ export default function ContactSection() {
   return (
     <section
       id="contactUs"
-      title={tCon('connectUs')}
       className="py-20 px-4 fade-edge fade-edge-bottom fade-edge-top fade-edge-sm fade-edge-cyberpunk"
     >
       <div className="mx-auto">

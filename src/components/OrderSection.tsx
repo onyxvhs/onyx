@@ -44,7 +44,6 @@ export default function OrderSection() {
   return (
     <section
       id="order"
-      title={tOrd('order')}
       className="py-32 px-4 relative bg-gradient-to-b from-purple-900/20 via-black/80 to-purple-900/20 overflow-hidden"
     >
       {/* Decorative background layers */}

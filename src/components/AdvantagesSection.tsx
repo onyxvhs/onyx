@@ -57,7 +57,6 @@ export default function AdvantagesSection() {
   return (
     <section
       id="advantages"
-      title={tAdv('header')}
       className="py-44 md:py-32 px-4 relative bg-gradient-to-b from-purple-950/30 via-black/50 to-purple-800/30 fade-edge fade-edge-bottom fade-edge-sm fade-edge-cyberpunk"
     >
       <div className="max-w-md sm:max-w-4xl mx-auto relative z-10">

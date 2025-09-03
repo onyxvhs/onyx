@@ -120,7 +120,6 @@ export default function CarouselSection() {
   return (
     <section
       id="product"
-      title={tCar('sectionTitle')}
       className="py-12 md:py-20 px-4 relative bg-gradient-to-b from-purple-800/30 via-black/50 to-purple-800/20 fade-edge fade-edge-bottom fade-edge-sm fade-edge-cyberpunk"
     >
       {/* Main Content */}
